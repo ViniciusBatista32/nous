@@ -5,7 +5,7 @@ import 'package:nous/ui/login_page.dart';
 import 'package:nous/ui/home_page.dart';
 
 main(){
-   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
   ));
 

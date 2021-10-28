@@ -12,7 +12,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.only(left: 70, right: 70),
+        padding: const EdgeInsets.only(left: 60, right: 60),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -25,32 +25,31 @@ class _WelcomePageState extends State<WelcomePage> {
             end: Alignment(1, 0),
           )
         ),
+        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
 
-          Text(
-            "NOÛS",
-            textAlign: TextAlign.center,
+            Text(
+              "NOÛS",
+              textAlign: TextAlign.center,
 
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 40,
-              shadows: [
-                Shadow(
-                  offset: const Offset(0, 5),
-                  blurRadius: 30.0,
-                  color: Colors.grey.shade400,
-                ),
-              ],
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 40,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(0, 5),
+                    blurRadius: 30.0,
+                    color: Colors.grey.shade400,
+                  ),
+                ],
+              ),
             ),
-          ),
 
             Container(
               padding: const EdgeInsets.only(top: 15),
-              width: MediaQuery.of(context).size.width * 0.70,
-              
               child: const Text(
                 "Produtividade de maneira simplificada, até porque ser produtivo é ser simples",
                 style: TextStyle(
@@ -58,13 +57,16 @@ class _WelcomePageState extends State<WelcomePage> {
                   fontSize: 18,
                 ),
                 textAlign: TextAlign.center,
-              )
+              ),
             ),
 
             Padding(
-              padding: const EdgeInsets.only(top: 40, left: 35, right: 35),
+              padding: const EdgeInsets.only(top: 40, left: 30, right: 30),
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.pushNamed(context, "/login");
+                },
+
                 child: const Text(
                   "Login",
                   style: TextStyle(
@@ -96,9 +98,11 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(left: 35, right: 35),
+              padding: const EdgeInsets.only(left: 30, right: 30),
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.pushNamed(context, "/login");
+                },
                 
                 child: const Text(
                   "Criar Conta",
