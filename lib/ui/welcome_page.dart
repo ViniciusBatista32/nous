@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage();
+  PageController _pageController = PageController();
+
+  WelcomePage(this._pageController);
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -13,18 +15,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 60, right: 60),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 255, 224, 230),
-              Color.fromARGB(255, 255, 255, 255),
-              Color.fromARGB(255, 255, 224, 230)
-            ],
-            stops: [0, 0.5, 1],
-            begin: Alignment(-1, -1),
-            end: Alignment(1, 0),
-          )
-        ),
+        color: Colors.transparent,
         
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +55,7 @@ class _WelcomePageState extends State<WelcomePage> {
               padding: const EdgeInsets.only(top: 40, left: 30, right: 30),
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, "/login");
+                  widget._pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                 },
 
                 child: const Text(
@@ -101,7 +92,7 @@ class _WelcomePageState extends State<WelcomePage> {
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.pushNamed(context, "/login");
+                  widget._pageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                 },
                 
                 child: const Text(

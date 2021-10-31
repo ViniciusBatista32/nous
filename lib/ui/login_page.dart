@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
+
+import 'package:nous/components/widgets.dart';
 import 'package:nous/functions/users_functions.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage();
+  PageController _pageController = PageController();
+
+  LoginPage(this._pageController);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -24,16 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         padding: const EdgeInsets.only(left: 50, right: 50),
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 255, 224, 230),
-              Color.fromARGB(255, 255, 255, 255),
-              Color.fromARGB(255, 255, 224, 230)
-            ],
-            stops: [0, 0.5, 1],
-            begin: Alignment(-1, -1),
-            end: Alignment(1, 0),
-          )
+          color: Colors.transparent
         ),
 
         child: Form(
@@ -79,50 +74,23 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              Padding(
+              WidgetComponents().CustomFormField(
+                controller: emailController,
+
+                validator: (value){
+                  if(value!.isEmpty)
+                  {
+                    return "Insira um Email!";
+                  }
+                  else if(!value.contains("@") || !value.contains("."))
+                  {
+                    return "Insira um Email válido!";
+                  }
+                },
+
+                hintText: "Digite seu Email",
                 padding: EdgeInsets.only(top: 25),
-                
-                child: Column(
-                  children: [
-                    TextFormField(
-                      validator: (value){
-                        if(value!.isEmpty)
-                        {
-                          return "Insira um Email!";
-                        }
-                      },
-
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-
-                      decoration: InputDecoration(
-                        hintText: "Digite seu Email",
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.grey.shade200)
-                        ),
-
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.grey)
-                        ),
-
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.red)
-                        ),
-
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.red.shade900)
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                keyboardType: TextInputType.emailAddress,
               ),
 
               Padding(
@@ -145,49 +113,20 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              Padding(
+              WidgetComponents().CustomFormField(
+                controller: passwordController,
+
+                validator: (value){
+                  if(value!.isEmpty)
+                  {
+                    return "Insira uma Senha!";
+                  }
+                },
+
+                hintText: "Digite sua Senha",
                 padding: EdgeInsets.only(top: 25),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      validator: (value){
-                        if(value!.isEmpty)
-                        {
-                          return "Insira uma Senha!";
-                        }
-                      },
-
-                      controller: passwordController,
-                      obscureText: true,
-
-                      decoration: InputDecoration(
-                        hintText: "Digite sua Senha",
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.grey.shade200)
-                        ),
-
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.grey)
-                        ),
-
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.red)
-                        ),
-
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.red.shade900)
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                keyboardType: TextInputType.text,
+                obscureText: true
               ),
 
               Padding(
@@ -222,26 +161,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text(
-                  "Ainda não tem conta?",
-                  textAlign: TextAlign.center
-                )
-              ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                 child: ElevatedButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, "/login");
+                    widget._pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                   },
 
                   child: const Padding(
                     padding: EdgeInsets.only(top: 8, bottom: 8),
 
                     child: Text(
-                      "Criar Conta",
+                      "Voltar",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -273,18 +204,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() async
   {
-    dynamic emailInputValue = emailController.text;
-    dynamic passwordInputValue = utf8.encode(passwordController.text);
-    passwordInputValue = md5.convert(passwordInputValue).toString();
-
-    if(loginFormKey.currentState!.validate())
-    {
-      final request = await UsersFunctions().loginRequest(emailInputValue, passwordInputValue);
-
-      if(request["request_status"]["status"] == 0)
-      {
-        // do something
-      }
-    }
+    UsersFunctions().loginFunction(loginFormKey, emailController.text, passwordController.text);
   }
 }

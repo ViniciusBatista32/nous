@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:nous/ui/login_page.dart';
+import 'package:nous/ui/welcome_page.dart';
+import 'package:nous/ui/signup_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage();
+class HomePage extends StatelessWidget
+{
+  HomePage();
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
+  Widget build(BuildContext context)
+  {
+    final _pageController = PageController(initialPage: 1);
 
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      
+    return PageView(
+      controller: _pageController,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        SignUpPage(_pageController),
+        WelcomePage(_pageController),
+        LoginPage(_pageController),
+      ],
     );
   }
 }
