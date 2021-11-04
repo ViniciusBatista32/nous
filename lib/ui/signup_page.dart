@@ -30,13 +30,15 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(left: 50, right: 50),
+            padding: const EdgeInsets.only(top: 50, left: 50, right: 50),
             decoration: const BoxDecoration(
               color: Colors.transparent
             ),
 
+
             child: Form(
               key: signUpFormKey,
+              
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,14 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize: 40,
-                      shadows: [
-                        Shadow(
-                          offset: const Offset(0, 5),
-                          blurRadius: 30.0,
-                          color: Colors.grey.shade400,
-                        ),
-                      ],
+                      fontSize: 30
                     ),
                   ),
 
@@ -66,14 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        fontSize: 28,
-                        shadows: [
-                          Shadow(
-                            offset: const Offset(0, 5),
-                            blurRadius: 30.0,
-                            color: Colors.grey.shade400,
-                          ),
-                        ],
+                        fontSize: 18
                       ),
                     ),
                   ),
@@ -89,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
 
                     hintText: "Digite seu Nome",
-                    padding: EdgeInsets.only(top: 25),
+                    padding: EdgeInsets.only(top: 10),
                   ),
 
                   Padding(
@@ -100,14 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        fontSize: 28,
-                        shadows: [
-                          Shadow(
-                            offset: const Offset(0, 5),
-                            blurRadius: 30.0,
-                            color: Colors.grey.shade400,
-                          ),
-                        ],
+                        fontSize: 18
                       ),
                     ),
                   ),
@@ -127,7 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
 
                     hintText: "Digite seu Email",
-                    padding: EdgeInsets.only(top: 25),
+                    padding: EdgeInsets.only(top: 10),
                     keyboardType: TextInputType.emailAddress,
                   ),
 
@@ -139,14 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        fontSize: 28,
-                        shadows: [
-                          Shadow(
-                            offset: const Offset(0, 5),
-                            blurRadius: 30.0,
-                            color: Colors.grey.shade400,
-                          ),
-                        ],
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -162,7 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
 
                     hintText: "Digite sua Senha",
-                    padding: EdgeInsets.only(top: 25),
+                    padding: EdgeInsets.only(top: 10),
                     keyboardType: TextInputType.text,
                     obscureText: true
                   ),
@@ -220,7 +194,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                    padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
                     child: ElevatedButton(
                       onPressed: (){
                         widget._pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
@@ -255,6 +229,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ],
               ),
+              
             )
           ),
         ),
