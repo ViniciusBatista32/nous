@@ -21,10 +21,12 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final String action = "login";
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
+    Color backColor = loading ? Color.fromARGB(255, 159, 64, 83) : Color.fromARGB(255, 255, 104, 132);
+    
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -78,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                         return "Insira um Email válido!";
                     },
 
+                    hintText: "Digite seu Email",
                     padding: EdgeInsets.only(top: 10),
                     keyboardType: TextInputType.emailAddress,
                   ),
@@ -119,14 +122,21 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      onPressed: () {},
+                      
+                      onPressed: () {
+                        widget._pageController.animateToPage(
+                          3,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut
+                        );
+                      },
                     ),
                   ),
 
                   Padding(
                     padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
                     child: ElevatedButton(
-                      onPressed: login,
+                      onPressed: loading ? null : login,
                       
                       child: const Padding(
                         padding: EdgeInsets.only(top: 8, bottom: 8),
@@ -154,11 +164,16 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: ()
                       {
-                        widget._pageController.animateToPage(
-                          1,
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.easeInOut
-                        );
+                        if(loading)
+                          null;
+                        else
+                        {
+                          widget._pageController.animateToPage(
+                            1,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeInOut
+                          );
+                        }
                       },
 
                       child: const Padding(
@@ -197,6 +212,22 @@ class _LoginPageState extends State<LoginPage> {
   void login() async
   {
     if(loginFormKey.currentState!.validate())
-      UsersFunctions().loginFunction(loginFormKey, emailController.text, passwordController.text);
+    {
+      FocusScope.of(context).unfocus();
+
+      setState(() {
+        loading = true;
+      });
+
+      UsersFunctions().loginFunction(emailController.text, passwordController.text).then((value)
+      {
+        if(!value)
+        {
+          setState(() {
+            loading = false;
+          });
+        }
+      });
+    }
   }
 }

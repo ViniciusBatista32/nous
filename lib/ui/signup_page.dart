@@ -19,12 +19,14 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
-  final String action = "signup";
   bool loading = false;
 
   @override
-  Widget build(BuildContext context) {
-    return loading ? WidgetComponents().Loading() : Scaffold(
+  Widget build(BuildContext context)
+  {
+    Color backColor = loading ? Color.fromARGB(255, 159, 64, 83) : Color.fromARGB(255, 255, 104, 132);
+
+    return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -42,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
 
-                  Text(
+                  const Text(
                     "Cadastro",
 
                     style: TextStyle(
@@ -51,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
 
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 40),
 
                     child: Text(
@@ -69,16 +71,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
                     validator: (value){
                       if(value!.isEmpty)
-                      {
                         return "Insira seu Nome!";
-                      }
                     },
 
                     hintText: "Digite seu Nome",
                     padding: EdgeInsets.only(top: 10),
                   ),
 
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 40),
 
                     child: Text(
@@ -96,13 +96,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
                     validator: (value){
                       if(value!.isEmpty)
-                      {
                         return "Insira um Email!";
-                      }
                       else if(!value.contains("@") || !value.contains("."))
-                      {
                         return "Insira um Email válido!";
-                      }
                     },
 
                     hintText: "Digite seu Email",
@@ -110,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.emailAddress,
                   ),
 
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 40),
 
                     child: Text(
@@ -128,9 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                     validator: (value){
                       if(value!.isEmpty)
-                      {
                         return "Insira uma Senha!";
-                      }
                     },
 
                     hintText: "Digite sua Senha",
@@ -144,13 +138,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
                     validator: (value){
                       if(value!.isEmpty)
-                      {
                         return "Insira uma Senha!";
-                      }
                       else if(value != passwordController.text)
-                      {
                         return "As senhas não coincidem!";
-                      }
                     },
 
                     hintText: "Digite novamente sua Senha",
@@ -163,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
 
                     child: ElevatedButton(
-                      onPressed: signUp,
+                      onPressed: loading ? null : signUp,
 
                       child: const Padding(
                         padding: EdgeInsets.only(top: 8, bottom: 8),
@@ -194,11 +184,21 @@ class _SignUpPageState extends State<SignUpPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
                     child: ElevatedButton(
-                      onPressed: (){
-                        widget._pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                      onPressed: ()
+                      {
+                        if(loading)
+                          null;
+                        else
+                        {
+                          widget._pageController.animateToPage(
+                            1,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeInOut
+                          );
+                        }
                       },
 
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.only(top: 8, bottom: 8),
 
                         child: Text(
@@ -206,7 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
-                            color: Color.fromARGB(255, 255, 104, 132)
+                            color: backColor
                           ),
                         ),
                       ),
@@ -227,7 +227,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ],
               ),
-              
             )
           ),
         ),
@@ -245,10 +244,20 @@ class _SignUpPageState extends State<SignUpPage> {
         loading = true;
       });
 
-      UsersFunctions().signUpFunction(signUpFormKey, nameController.text, emailController.text, passwordController.text);
+      UsersFunctions().signUpFunction(nameController.text, emailController.text, passwordController.text).then((value){
+        if(value)
+        {
+          nameController.text = "";
+          emailController.text = "";
+          passwordController.text = "";
+          confirmPasswordController.text = "";
 
-      setState(() {
-        loading = false;
+          widget._pageController.animateToPage(
+            1,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOut
+          );
+        }
       });
     }
   }

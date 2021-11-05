@@ -1,13 +1,12 @@
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
-
 import 'package:nous/functions/local_storage_functions.dart';
 import 'package:nous/request_handler/users_request_handler.dart';
 
 class UsersFunctions
 {
-  void loginFunction(loginFormKey, emailRawValue, passwordRawValue) async
+  Future loginFunction(emailRawValue, passwordRawValue) async
   {
     dynamic emailInputValue = Uri.encodeComponent(emailRawValue.toLowerCase().replaceAll(" ", ''));
     dynamic passwordInputValue = md5.convert(utf8.encode(passwordRawValue)).toString();
@@ -20,10 +19,14 @@ class UsersFunctions
       {
         Get.offAndToNamed("/dashboard");
       });
+
+      return true;
     }
     else if(request["request_status"]["status"] == 1)
     {
       Get.snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
+
+      return false;
     }
     else
     {
@@ -45,10 +48,12 @@ class UsersFunctions
           Get.snackbar("Não foi possível fazer login", "Tente novamente mais tarde");
         break;
       }
+
+      return false;
     }
   }
 
-  void signUpFunction(signUpFormKey, nameRawValue, emailRawValue, passwordRawValue) async
+  Future signUpFunction(nameRawValue, emailRawValue, passwordRawValue) async
   {
     dynamic nameInputValue = Uri.encodeComponent(nameRawValue);
     dynamic emailInputValue = Uri.encodeComponent(emailRawValue.toLowerCase().replaceAll(" ", ''));
@@ -59,10 +64,14 @@ class UsersFunctions
     if(request["request_status"]["status"] == 0)
     {
       Get.snackbar("Cadastrado com sucesso", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+
+      return true;
     }
     else if(request["request_status"]["status"] == 1)
     {
       Get.snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
+
+      return false;
     }
     else
     {
@@ -76,11 +85,43 @@ class UsersFunctions
           Get.snackbar("Não foi possível fazer o cadastro", "Tente novamente mais tarde");
         break;
       }
+
+      return false;
     }
   }
 
-  void resetPasswordFunction(loginFormKey, emailRawValue)
+  Future resetPasswordFunction(emailRawValue) async
   {
     dynamic emailInputValue = Uri.encodeComponent(emailRawValue.toLowerCase().replaceAll(" ", ''));
+
+    final request = await UsersRequests().resetPasswordRequest(emailInputValue);
+
+    if(request["request_status"]["status"] == 0)
+    {
+      Get.snackbar("Email de redefinição enviado", "Um email de redefinição de senha foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+
+      return true;
+    }
+    else if(request["request_status"]["status"] == 1)
+    {
+      Get.snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
+
+      return false;
+    }
+    else
+    {
+      switch (request["request_status"]["error_code"])
+      {
+        case 4:
+          Get.snackbar("Email inválido", "O email informado não existe");
+        break;
+
+        default:
+          Get.snackbar("Não foi possível fazer a requisição de redefinição", "Tente novamente mais tarde");
+        break;
+      }
+
+      return false;
+    }
   }
 }
