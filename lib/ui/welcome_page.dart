@@ -81,7 +81,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
 
             const Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 3),
               child: Text(
                 "Ainda não tem conta?",
                 textAlign: TextAlign.center
