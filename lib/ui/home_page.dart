@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nous/ui/login_page.dart';
-import 'package:nous/ui/welcome_page.dart';
 import 'package:nous/ui/signup_page.dart';
+import 'package:nous/ui/welcome_page.dart';
+import 'package:nous/ui/login_page.dart';
+import 'package:nous/ui/reset_password_page.dart';
 
 class HomePage extends StatelessWidget
 {
@@ -19,6 +20,7 @@ class HomePage extends StatelessWidget
         SignUpPage(_pageController),
         WelcomePage(_pageController),
         LoginPage(_pageController),
+        ResetPasswordPage(_pageController)
       ],
     );
   }

@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-
 import 'package:nous/components/widgets.dart';
 import 'package:nous/functions/users_functions.dart';
 
@@ -23,10 +20,11 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController confirmPasswordController = TextEditingController();
 
   final String action = "signup";
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? WidgetComponents().Loading() : Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -264,6 +262,19 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void signUp() async
   {
-    UsersFunctions().signUpFunction(signUpFormKey, nameController.text, emailController.text, passwordController.text);
+    if(signUpFormKey.currentState!.validate())
+    {
+      FocusScope.of(context).unfocus();
+
+      setState(() {
+        loading = true;
+      });
+
+      UsersFunctions().signUpFunction(signUpFormKey, nameController.text, emailController.text, passwordController.text);
+
+      setState(() {
+        loading = false;
+      });
+    }
   }
 }

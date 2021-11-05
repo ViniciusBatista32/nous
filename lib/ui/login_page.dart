@@ -1,7 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:crypto/crypto.dart';
-
 import 'package:nous/components/widgets.dart';
 import 'package:nous/functions/users_functions.dart';
 
@@ -204,6 +201,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() async
   {
-    UsersFunctions().loginFunction(loginFormKey, emailController.text, passwordController.text);
+    if(loginFormKey.currentState!.validate())
+      UsersFunctions().loginFunction(loginFormKey, emailController.text, passwordController.text);
   }
 }

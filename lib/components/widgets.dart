@@ -41,4 +41,15 @@ class WidgetComponents
       )
     );
   }
+
+  Widget Loading()
+  {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text("Carregando")
+      ],
+    );
+  }
 }
