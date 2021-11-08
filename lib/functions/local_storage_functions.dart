@@ -4,12 +4,17 @@ import 'dart:io';
 
 class UserLocalStorageFunctions
 {
-  Future<File> getFile() async
+  Future getFile() async
   {
-    final directory = await getApplicationDocumentsDirectory();
+    try {
+      final directory = await getApplicationDocumentsDirectory();
 
-    return File("${directory.path}/user_data.json");
-
+      return File("${directory.path}/user_data.json");
+    }
+    catch (e)
+    {
+      return "";
+    }
   }
 
   Future<File> saveData(user_data) async
@@ -25,13 +30,13 @@ class UserLocalStorageFunctions
   {
     try
     {
-      final file = await getFile();
+      final file = await this.getFile();
 
       return file.readAsString();
     }
     catch (e)
     {
-      return null;
+      return "";
     }
   }
 }

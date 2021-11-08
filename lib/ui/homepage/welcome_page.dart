@@ -22,20 +22,13 @@ class _WelcomePageState extends State<WelcomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
 
-            Text(
+            const Text(
               "NOÛS",
               textAlign: TextAlign.center,
 
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 40,
-                shadows: [
-                  Shadow(
-                    offset: const Offset(0, 5),
-                    blurRadius: 30.0,
-                    color: Colors.grey.shade400,
-                  ),
-                ],
               ),
             ),
 
@@ -55,7 +48,11 @@ class _WelcomePageState extends State<WelcomePage> {
               padding: const EdgeInsets.only(top: 40, left: 30, right: 30),
               child: ElevatedButton(
                 onPressed: (){
-                  widget._pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                  widget._pageController.animateToPage(
+                    2,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut
+                  );
                 },
 
                 child: const Text(
@@ -92,7 +89,11 @@ class _WelcomePageState extends State<WelcomePage> {
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: ElevatedButton(
                 onPressed: (){
-                  widget._pageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                  widget._pageController.animateToPage(
+                    0,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut
+                  );
                 },
                 
                 child: const Text(

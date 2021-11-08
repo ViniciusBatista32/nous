@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
 
-import 'package:nous/ui/welcome_page.dart';
-import 'package:nous/ui/login_page.dart';
+import 'functions/local_storage_functions.dart';
+
 import 'package:nous/ui/home_page.dart';
 import 'package:nous/ui/dashboard.dart';
 
-main(){
+main()
+async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
   ));
@@ -21,7 +23,7 @@ main(){
 
     routes: {
       "/":          (context) => HomePage(),
-      "/dashboard": (context) => DashBoard()
+      "/dashboard": (context) => Dashboard()
     },
   ));
 }

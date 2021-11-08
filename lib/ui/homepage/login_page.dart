@@ -42,19 +42,12 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
 
-                  Text(
+                  const Text(
                     "Login",
 
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 30,
-                      shadows: [
-                        Shadow(
-                          offset: const Offset(0, 5),
-                          blurRadius: 30.0,
-                          color: Colors.grey.shade400,
-                        ),
-                      ],
                     ),
                   ),
 
