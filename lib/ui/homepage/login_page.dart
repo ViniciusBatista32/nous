@@ -92,7 +92,18 @@ class _LoginPageState extends State<LoginPage> {
 
                   WidgetComponents().CustomFormField(
                     controller: passwordController,
-                    
+                    suffixIcon: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          invisible = !invisible;
+                        });
+                      },
+                      child: Icon(
+                        invisible ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.pinkAccent,
+                      )
+                    ),
+
                     validator: (value) {
                       if(value!.isEmpty)
                         return "Insira uma Senha!";
@@ -101,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Digite sua Senha",
                     padding: EdgeInsets.only(top: 10),
                     keyboardType: TextInputType.text,
-                    obscureText: true
+                    obscureText: invisible
                   ),
 
                   Padding(
