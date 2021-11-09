@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class WidgetComponents
 {
-  Widget CustomFormField({controller, validator, hintText, padding = 0, keyboardType = TextInputType.text, obscureText = false})
+  Widget CustomFormField({controller, validator, hintText, padding = 0, keyboardType = TextInputType.text, obscureText = false, suffixIcon = false})
   {
     return Padding(
       padding: padding,
@@ -17,6 +18,7 @@ class WidgetComponents
           hintText: hintText,
           fillColor: Colors.grey.shade100,
           filled: true,
+          suffixIcon: suffixIcon == false ? SizedBox.shrink() : suffixIcon,
 
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
