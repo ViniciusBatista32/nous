@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nous/ui/dashboard/dashboard_home_page.dart';
+import 'package:nous/ui/dashboard/schedule_page.dart';
+import 'package:nous/ui/dashboard/todo_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard();
@@ -12,45 +15,22 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color.fromARGB(255, 242, 244, 244),
         shadowColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.black, size: 30),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Text(
-              "Dashboard",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 40,
-                fontFamily: "Quicksand",
-                fontWeight: FontWeight.w500
-              ),
-            ),
-          )
-        ],
       ),
 
       body: Container(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 242, 244, 244)
+        ),
         child: PageView(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.red
-              ),
-            ),
+            DashboardHomePage(),
 
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.green
-              ),
-            ),
+            SchedulePage(),
 
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.blue
-              ),
-            )
+            TodoPage()
           ],
         )
       ),

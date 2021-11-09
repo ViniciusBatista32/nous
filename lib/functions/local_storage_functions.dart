@@ -13,7 +13,7 @@ class UserLocalStorageFunctions
     }
     catch (e)
     {
-      return "";
+      return null;
     }
   }
 
@@ -36,7 +36,7 @@ class UserLocalStorageFunctions
     }
     catch (e)
     {
-      return "";
+      return null;
     }
   }
 }

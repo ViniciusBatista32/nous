@@ -6,6 +6,13 @@ import 'package:nous/request_handler/users_request_handler.dart';
 
 class UsersFunctions
 {
+  void snackBar(String title, String description)
+  {
+    if(Get.isSnackbarOpen ?? false){}
+    else
+      Get.snackbar(title, description);
+  }
+
   Future loginFunction(emailRawValue, passwordRawValue) async
   {
     dynamic emailInputValue = Uri.encodeComponent(emailRawValue.toLowerCase().replaceAll(" ", ''));
@@ -24,7 +31,7 @@ class UsersFunctions
     }
     else if(request["request_status"]["status"] == 1)
     {
-      Get.snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
+      snackBar("Servidor em Manutenção", "Tente novamente mais tarde");
 
       return false;
     }
@@ -33,19 +40,19 @@ class UsersFunctions
       switch (request["request_status"]["error_code"])
       {
         case 4:
-          Get.snackbar("Login Inválido", "O email informado não existe");
+          snackBar("Login Inválido", "O email informado não existe");
         break;
 
         case 6:
-          Get.snackbar("Login Inválido", "A senha informada está incorreta");
+          snackBar("Login Inválido", "A senha informada está incorreta");
         break;
 
         case 11:
-          Get.snackbar("Cadastro não confirmado", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+          snackBar("Cadastro não confirmado", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
         break;
 
         default:
-          Get.snackbar("Não foi possível fazer login", "Tente novamente mais tarde");
+          snackBar("Não foi possível fazer login", "Tente novamente mais tarde");
         break;
       }
 
@@ -63,13 +70,13 @@ class UsersFunctions
 
     if(request["request_status"]["status"] == 0)
     {
-      Get.snackbar("Cadastrado com sucesso", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+      snackBar("Cadastrado com sucesso", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
 
       return true;
     }
     else if(request["request_status"]["status"] == 1)
     {
-      Get.snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
+      snackBar("Servidor em Manutenção", "Tente novamente mais tarde");
 
       return false;
     }
@@ -78,11 +85,11 @@ class UsersFunctions
       switch (request["request_status"]["error_code"])
       {
         case 8:
-          Get.snackbar("Email inválido", "O email informado já está cadastrado");
+          snackBar("Email inválido", "O email informado já está cadastrado");
         break;
 
         default:
-          Get.snackbar("Não foi possível fazer o cadastro", "Tente novamente mais tarde");
+          snackBar("Não foi possível fazer o cadastro", "Tente novamente mais tarde");
         break;
       }
 
@@ -98,13 +105,13 @@ class UsersFunctions
 
     if(request["request_status"]["status"] == 0)
     {
-      Get.snackbar("Email de redefinição enviado", "Um email de redefinição de senha foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+      snackBar("Email de redefinição enviado", "Um email de redefinição de senha foi enviado para sua caixa de emails\nVerifique a caixa de spam");
 
       return true;
     }
     else if(request["request_status"]["status"] == 1)
     {
-      Get.snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
+      snackBar("Servidor em Manutenção", "Tente novamente mais tarde");
 
       return false;
     }
@@ -113,11 +120,11 @@ class UsersFunctions
       switch (request["request_status"]["error_code"])
       {
         case 4:
-          Get.snackbar("Email inválido", "O email informado não existe");
+          snackBar("Email inválido", "O email informado não existe");
         break;
 
         default:
-          Get.snackbar("Não foi possível fazer a requisição de redefinição", "Tente novamente mais tarde");
+          snackBar("Não foi possível fazer a requisição de redefinição", "Tente novamente mais tarde");
         break;
       }
 

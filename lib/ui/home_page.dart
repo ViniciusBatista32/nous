@@ -14,15 +14,21 @@ class HomePage extends StatelessWidget
   {
     final _pageController = PageController(initialPage: 1);
 
-    return PageView(
-      controller: _pageController,
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        SignUpPage(_pageController),
-        WelcomePage(_pageController),
-        LoginPage(_pageController),
-        ResetPasswordPage(_pageController)
-      ],
+    return Container(
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 242, 244, 244)
+        ),
+        
+        child:PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          SignUpPage(_pageController),
+          WelcomePage(_pageController),
+          LoginPage(_pageController),
+          ResetPasswordPage(_pageController)
+        ],
+      )
     );
   }
 }

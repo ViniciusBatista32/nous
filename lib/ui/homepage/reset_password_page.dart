@@ -27,8 +27,6 @@ class _ResetPasswordPage extends State<ResetPasswordPage> {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.only(left: 50, right: 50),
-            decoration: const BoxDecoration(color: Colors.transparent),
-
             child: Form(
               key: resetPasswordFormKey,
               child: Column(

@@ -32,8 +32,6 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.only(left: 50, right: 50),
-            decoration: const BoxDecoration(color: Colors.transparent),
-
             child: Form(
               key: loginFormKey,
               child: Column(

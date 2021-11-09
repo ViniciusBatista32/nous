@@ -15,8 +15,6 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 60, right: 60),
-        color: Colors.transparent,
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
