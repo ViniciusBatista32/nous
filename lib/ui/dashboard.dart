@@ -21,6 +21,7 @@ class _DashboardState extends State<Dashboard> {
       ),
 
       body: Container(
+
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 242, 244, 244)
         ),
@@ -35,7 +36,43 @@ class _DashboardState extends State<Dashboard> {
         )
       ),
 
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            DrawerHeader(
+              child: Center(
+                child: DrawerHeader(
+                  decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 0.5, color: Color.fromARGB(255, 255, 156, 174)))),
+                  child: Image(
+                    image: AssetImage('assets/icons/app_icon200x200.png'))
+                    ),        
+                  )
+              ),
+              ListTile(
+                leading: Icon(Icons.dashboard),
+                enabled: true,
+                title: Text('Dashboard'),
+              ),
+              ListTile(
+                leading: Icon(Icons.book),
+                title: Text('Artigos'),
+              ),
+              ListTile(
+                leading: Icon(Icons.insert_chart_outlined),
+                title: Text('Produtividade'),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.525,
+                alignment: FractionalOffset.bottomCenter,
+                child: ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Configurações')
+                )
+              )
+          ],
+        )
+      ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: (){},

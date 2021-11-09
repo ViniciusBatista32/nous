@@ -77,10 +77,18 @@ flutter:
         - asset: assets/fonts/Quicksand-Light.ttf
           weight: 300
 
+
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/icons/app_icon.png
+    - assets/icons/app_icon100x100.png
+    - assets/icons/app_icon200x200.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
