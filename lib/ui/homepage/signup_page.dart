@@ -14,6 +14,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
 
+  bool invisible = true;
+
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -125,7 +127,18 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintText: "Digite sua Senha",
                     padding: EdgeInsets.only(top: 10),
                     keyboardType: TextInputType.text,
-                    obscureText: true
+                    obscureText: invisible,
+                    suffixIcon: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          invisible = !invisible;
+                        });
+                      },
+                      child: Icon(
+                        invisible ? Icons.visibility_off : Icons.visibility,
+                        color: Color.fromARGB(255, 255, 104, 132),
+                      ),
+                    ),
                   ),
                 
                   WidgetComponents().CustomFormField(
@@ -141,7 +154,18 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintText: "Digite novamente sua Senha",
                     padding: EdgeInsets.only(top: 15),
                     keyboardType: TextInputType.text,
-                    obscureText: true
+                    obscureText: invisible,
+                    suffixIcon: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          invisible = !invisible; 
+                        });
+                      },
+                      child: Icon(
+                        invisible ? Icons.visibility_off : Icons.visibility,
+                        color: Color.fromARGB(255, 255, 104, 132),
+                      ),
+                    )
                   ),
 
                   Padding(

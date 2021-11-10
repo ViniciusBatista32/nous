@@ -50,24 +50,27 @@ class _DashboardState extends State<Dashboard> {
                   )
               ),
               ListTile(
-                leading: Icon(Icons.dashboard),
+                leading: Icon(Icons.dashboard, color: Color.fromARGB(255, 76, 76, 76)),
                 enabled: true,
-                title: Text('Dashboard'),
+                title: Text('Dashboard', style: TextStyle(color: Color.fromARGB(255, 76, 76, 76)),),
               ),
               ListTile(
-                leading: Icon(Icons.book),
-                title: Text('Artigos'),
+                leading: Icon(Icons.book, color: Color.fromARGB(255, 76, 76, 76)),
+                title: Text('Artigos',
+                style: TextStyle(color: Color.fromARGB(255, 76, 76, 76)),),
               ),
               ListTile(
-                leading: Icon(Icons.insert_chart_outlined),
-                title: Text('Produtividade'),
+                leading: Icon(Icons.insert_chart_outlined, color: Color.fromARGB(255, 76, 76, 76),),
+                title: Text(
+                  'Produtividade',
+                  style: TextStyle(color: Color.fromARGB(255, 76, 76, 76),)),
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.525,
                 alignment: FractionalOffset.bottomCenter,
                 child: ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Configurações')
+                  leading: Icon(Icons.settings, color: Color.fromARGB(255, 76, 76, 76),),
+                  title: Text('Configurações', style: TextStyle(color: Color.fromARGB(255, 76, 76, 76)))
                 )
               )
           ],
