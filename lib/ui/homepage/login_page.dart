@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Icon(
                         invisible ? Icons.visibility_off : Icons.visibility,
-                        color: Colors.pinkAccent,
+                        color: Color.fromARGB(255, 255, 104, 132),
                       )
                     ),
 
