@@ -2,14 +2,14 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
 
-class UserLocalStorageFunctions
+class LocalStorageFunctions
 {
-  Future getFile() async
+  Future getFile(file_name) async
   {
     try {
       final directory = await getApplicationDocumentsDirectory();
 
-      return File("${directory.path}/user_data.json");
+      return File("${directory.path}/$file_name");
     }
     catch (e)
     {
@@ -17,20 +17,20 @@ class UserLocalStorageFunctions
     }
   }
 
-  Future<File> saveData(user_data) async
+  Future<File> saveData(json_data, file_name) async
   {
-    user_data = json.encode(user_data);
+    json_data = json.encode(json_data);
 
-    final file = await this.getFile();
+    final file = await this.getFile(file_name);
 
-    return file.writeAsString(user_data);
+    return file.writeAsString(json_data);
   }
 
-  Future readData() async
+  Future readData(file_name) async
   {
     try
     {
-      final file = await this.getFile();
+      final file = await this.getFile(file_name);
 
       return file.readAsString();
     }

@@ -44,14 +44,99 @@ class WidgetComponents
     );
   }
 
-  Widget Loading()
+  Widget WeeklyCard(String weekday, String monthday, {actual = false})
   {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text("Carregando")
-      ],
+    return Padding(
+      padding: EdgeInsets.only(left: 5, right: 5),
+      child: Container(
+        width: 52,
+        decoration: BoxDecoration(
+          color: actual ? Color.fromARGB(255, 255, 156, 174) : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12.withOpacity(0.3),
+              spreadRadius: 0.1,
+              blurRadius: 2,
+              offset: Offset(1,1)
+            )
+          ]
+        ),
+        
+        child: InkWell(
+          onTap: (){},
+          borderRadius: BorderRadius.circular(20),
+
+          child: Padding(
+          padding: EdgeInsets.only(top: 8, bottom: 8),
+
+            child: Column(
+              children: [
+
+                Text(
+                  weekday,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: actual ? Colors.white : Colors.black
+                  ),
+                ),
+
+                Text(
+                  monthday,
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: actual ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.w500
+                  )
+                )
+              ]
+            )
+          )
+        )
+      )
+    );
+  }
+
+  Widget ScheduleTask(String taskName, Color taskColor)
+  {
+    return Container(
+      padding: EdgeInsets.fromLTRB(30, 15, 10, 15),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: taskColor,
+            spreadRadius: 0,
+            blurRadius: 0,
+            offset: Offset(-2,0)
+          )
+        ]
+      ),
+
+      child: Row(
+        children: [
+          Text(
+            taskName,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+
+          Expanded(
+            child: GestureDetector(
+              onTap: (){},
+              child: Container(
+                alignment: Alignment.centerRight, 
+                child: Icon(
+                  Icons.keyboard_arrow_right,
+                ),
+              )
+            )
+          )
+        ],
+      )
     );
   }
 }

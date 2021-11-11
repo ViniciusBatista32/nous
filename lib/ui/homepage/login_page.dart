@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nous/components/widgets.dart';
 import 'package:nous/functions/users_functions.dart';
-
 
 class LoginPage extends StatefulWidget {
   PageController _pageController = PageController();

@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:nous/config.dart';
 import 'package:http/http.dart' as http;
 
-class UsersRequests {
+class UsersRequests
+{
   Future<Map> loginRequest(emailInputValue, passwordInputValue) async
   {
     Uri requestUri = Uri.parse("${Config().baseUrl}user.php?api_key=${Config().apiKey}&action=login&email=$emailInputValue&password=$passwordInputValue");

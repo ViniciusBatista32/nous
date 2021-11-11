@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/functions/local_storage_functions.dart';
+import 'package:nous/functions/schedule_functions.dart';
 import 'package:nous/request_handler/users_request_handler.dart';
 
 class UsersFunctions
@@ -13,18 +15,26 @@ class UsersFunctions
       Get.snackbar(title, description);
   }
 
-  Future loginFunction(emailRawValue, passwordRawValue) async
+  Future loginFunction(emailRawValue, passwordRawValue, {md5_encode = true}) async
   {
     dynamic emailInputValue = Uri.encodeComponent(emailRawValue.toLowerCase().replaceAll(" ", ''));
-    dynamic passwordInputValue = md5.convert(utf8.encode(passwordRawValue)).toString();
+    dynamic passwordInputValue = "";
+
+    if(md5_encode)
+      passwordInputValue = md5.convert(utf8.encode(passwordRawValue)).toString();
+    else
+      passwordInputValue = passwordRawValue;
 
     final request = await UsersRequests().loginRequest(emailInputValue, passwordInputValue);
 
     if(request["request_status"]["status"] == 0)
     {
-      UserLocalStorageFunctions().saveData(request["data"]).then((data)
-      {
-        Get.offAndToNamed("/dashboard");
+      LocalStorageFunctions().saveData(request["data"], "user_data.json").then((data){
+        global_user_data = request["data"];
+        
+        ScheduleFunctions().getUserSchedules(request["data"]["id"]).then((value){
+          Get.offAndToNamed("/dashboard");
+        });
       });
 
       return true;
