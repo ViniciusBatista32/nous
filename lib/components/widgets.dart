@@ -44,7 +44,7 @@ class WidgetComponents
     );
   }
 
-  Widget WeeklyCard(String weekday, String monthday, {actual = false})
+  Widget WeeklyCard(String weekday, String monthday, ontap, {actual = false})
   {
     return Padding(
       padding: EdgeInsets.only(left: 5, right: 5),
@@ -64,7 +64,7 @@ class WidgetComponents
         ),
         
         child: InkWell(
-          onTap: (){},
+          onTap: ontap,
           borderRadius: BorderRadius.circular(20),
 
           child: Padding(
@@ -97,46 +97,101 @@ class WidgetComponents
     );
   }
 
-  Widget ScheduleTask(String taskName, Color taskColor)
+  Widget ScheduleTask(String taskName, String description, Color taskColor, taskInit, taskFinal)
   {
-    return Container(
-      padding: EdgeInsets.fromLTRB(30, 15, 10, 15),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: taskColor,
-            spreadRadius: 0,
-            blurRadius: 0,
-            offset: Offset(-2,0)
-          )
-        ]
-      ),
+    taskInit = taskInit.substring(0,5);
+    taskFinal = taskFinal.substring(0,5);
+    
+    if(!description.isEmpty)
+    {
+      return Container(
+        // padding: EdgeInsets.fromLTRB(30, 15, 10, 15),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: taskColor,
+              spreadRadius: 0,
+              blurRadius: 0,
+              offset: Offset(-2,0)
+            )
+          ]
+        ),
 
-      child: Row(
-        children: [
-          Text(
-            taskName,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold
+        child: Theme(
+          data: ThemeData().copyWith(dividerColor: Colors.transparent),
+          child: ExpansionTile(
+            initiallyExpanded: false,
+            textColor: Colors.black,
+            iconColor: Colors.black,
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+
+            title: Text(
+              taskName,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              ),
             ),
-          ),
 
-          Expanded(
-            child: GestureDetector(
-              onTap: (){},
-              child: Container(
-                alignment: Alignment.centerRight, 
-                child: Icon(
-                  Icons.keyboard_arrow_right,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(16, 10, 10, 10),
+                child: Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
+              ),
+
+              Container(
+                padding: EdgeInsets.only(right: 10, bottom: 5),
+                alignment: Alignment.centerRight,
+                child: Text("$taskInit - $taskFinal"),
+              )
+            ],
+          )
+        )
+      );
+    }
+    else
+    {
+      return Container(
+        padding: EdgeInsets.fromLTRB(16, 17.5, 10, 17.5),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: taskColor,
+              spreadRadius: 0,
+              blurRadius: 0,
+              offset: Offset(-2,0)
+            )
+          ]
+        ),
+
+        child: Row(
+          children: [
+            Text(
+              taskName,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+
+            Expanded(
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: Text("$taskInit - $taskFinal"),
               )
             )
-          )
-        ],
-      )
-    );
+          ],
+        )
+      );
+    }
   }
 }

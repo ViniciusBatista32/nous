@@ -3,6 +3,11 @@ import 'package:nous/ui/dashboard/dashboard_home_page.dart';
 import 'package:nous/ui/dashboard/schedule_page.dart';
 import 'package:nous/ui/dashboard/todo_page.dart';
 
+var globalYear = null;
+var globalMonth = null;
+var globalDay = null;
+var globalWeekday = null;
+
 class Dashboard extends StatefulWidget {
   Dashboard();
 

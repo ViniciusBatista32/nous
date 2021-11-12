@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nous/components/widgets.dart';
 import 'package:nous/functions/in_app_data.dart';
+import 'package:nous/ui/dashboard.dart';
 
 class SchedulePage extends StatefulWidget {
   SchedulePage();
@@ -9,68 +10,127 @@ class SchedulePage extends StatefulWidget {
   _SchedulePageState createState() => _SchedulePageState();
 }
 
-class _SchedulePageState extends State<SchedulePage> {
-  changeWeekDay(coefficient)
+class _SchedulePageState extends State<SchedulePage>
+{
+  // Variables
+  // Get actual time
+  DateTime now = new DateTime.now();
+  
+  // Control
+  bool firstOpen = true;
+  int dayCoefficient = 0;
+  
+  // Date
+  int year = 0;
+  int month = 0;
+  int day = 0;
+  int weekday = 0;
+
+  // Data show
+  int listLength = 0;
+  List scheduleDayData = [];
+
+  // Arrays of name
+  var weekdaysName = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+  var minWeekdaysName = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+  var monthsName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+  getWeekdayName(coefficient)
   {
-    int new_weekday = 0;
+    int newWeekday = 0;
+
+    coefficient -= 1;
     if(coefficient.isNegative)
-      new_weekday = coefficient + ((coefficient.abs() / 7).ceil() * 7);
+      newWeekday = coefficient + ((coefficient.abs() / 7).ceil() * 7);
     else
     {
       if(coefficient > 6)
-        new_weekday = coefficient - ((coefficient / 7).floor() * 7);
+        newWeekday = coefficient - ((coefficient / 7).floor() * 7);
       else
-        new_weekday = coefficient;
+        newWeekday = coefficient;
     }
-    return new_weekday;
+    return minWeekdaysName[newWeekday];
   }
-  
-  // Arrays of name
-  var weekdays_array = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
-  var min_weekdays_array = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
-  var months_array = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Oututro", "Novembro", "Dezembro"];
 
-  // Variables of control
-  bool first_open = true;
-  int monthday = 0;
-  int weekday_counter = 0;
-  int monthday_counter = 0;
+  getDay(coefficient)
+  {
+    DateTime newDate = DateTime(year, month, coefficient);
+    return newDate.day;
+  }
+
+  getTaskColor(colorNumber)
+  {
+    switch (colorNumber) {
+      case "0":
+        return Colors.red;
+
+      case "1":
+        return Colors.orange;
+      
+      case "2":
+        return Colors.yellow;
+
+      case "3":
+        return Colors.lime;
+
+      case "4":
+        return Colors.green;
+
+      case "5":
+        return Colors.lightBlue;
+
+      case "6":
+        return Colors.purple;
+
+      case "7":
+        return Colors.pink;
+
+      case "8":
+        return Colors.brown;
+
+      case "9":
+        return Colors.black;
+
+      default:
+        return Colors.black;
+    }
+  }
 
   @override
-  Widget build(BuildContext context) {
-    // Get actual time
-    DateTime now = new DateTime.now();
-
-    // Define weekday variables
-    int weekday_number;
-    String weekday_text;
-    
-    // If the state is setting for the first time, get the actual data
-    if(first_open)
+  Widget build(BuildContext context)
+  {
+    if(firstOpen)
     {
-      weekday_number = now.weekday - 1;
-      weekday_text = weekdays_array[now.weekday - 1];
-      weekday_counter = now.weekday - 1;
+      year      = globalYear      != null ? globalYear      : now.year;
+      month     = globalMonth     != null ? globalMonth     : now.month;
+      day       = globalDay       != null ? globalDay       : now.day;
+      weekday   = globalWeekday   != null ? globalWeekday   : now.weekday;
 
-      monthday = now.day;
-      first_open = false;
+      firstOpen = false;
     }
     else
     {
-      weekday_text = weekdays_array[changeWeekDay(weekday_counter)];
-      weekday_number = weekday_counter;
+      if(dayCoefficient != 0)
+      {
+        DateTime newDate = DateTime(year, month, (day + dayCoefficient));
 
-      monthday += monthday_counter;
+        year    = newDate.year;
+        month   = newDate.month;
+        day     = newDate.day;
+        weekday = newDate.weekday;
+
+        globalYear      = year;
+        globalMonth     = month;
+        globalDay       = day;
+        globalWeekday   = weekday;
+
+        dayCoefficient = 0;
+      }
     }
-    
-    // Get month name
-    String month = months_array[now.month - 1].substring(0,3).toLowerCase();
 
-    // Get the selected or actual day tasks
-    List schedule_day_data = global_schedule_data[changeWeekDay(weekday_number)];
+    scheduleDayData = global_schedule_data[weekday - 1];
 
-    // Get the amount of tasks
-    int list_length = schedule_day_data.length;
+    listLength = scheduleDayData.length;
 
     return Container(
       child: Column(
@@ -112,7 +172,7 @@ class _SchedulePageState extends State<SchedulePage> {
                           alignment: Alignment.topLeft,
 
                           child: Text(
-                            "$weekday_text, $monthday de $month",
+                            "${weekdaysName[weekday - 1]}, $day de ${monthsName[month - 1].substring(0,3).toLowerCase()} de $year",
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold
@@ -133,8 +193,7 @@ class _SchedulePageState extends State<SchedulePage> {
                               child: GestureDetector(
                                 onTap: (){
                                   setState(() {
-                                    weekday_counter--;
-                                    monthday_counter = -1;
+                                    dayCoefficient = -1;
                                   });
                                 },
 
@@ -146,29 +205,50 @@ class _SchedulePageState extends State<SchedulePage> {
                             ),
 
                             WidgetComponents().WeeklyCard(
-                              "${min_weekdays_array[changeWeekDay(weekday_counter - 2)]}",
-                              "${monthday - 2}"
+                              getWeekdayName(weekday - 2),
+                              getDay(day - 2).toString(),
+                              (){
+                                setState(() {
+                                  dayCoefficient = -2;
+                                });
+                              }
                             ),
 
                             WidgetComponents().WeeklyCard(
-                              "${min_weekdays_array[changeWeekDay(weekday_counter - 1)]}",
-                              "${monthday - 1}"
+                              getWeekdayName(weekday - 1),
+                              getDay(day - 1).toString(),
+                              (){
+                                setState(() {
+                                  dayCoefficient = -1;
+                                });
+                              }
                             ),
 
                             WidgetComponents().WeeklyCard(
-                              "${min_weekdays_array[changeWeekDay(weekday_counter)]}",
-                              "$monthday",
+                              minWeekdaysName[weekday - 1],
+                              day.toString(),
+                              (){},
                               actual: true
                             ),
 
                             WidgetComponents().WeeklyCard(
-                              "${min_weekdays_array[changeWeekDay(weekday_counter + 1)]}",
-                              "${monthday + 1}"
+                              getWeekdayName(weekday + 1),
+                              getDay(day + 1).toString(),
+                              (){
+                                setState(() {
+                                  dayCoefficient = 1;
+                                });
+                              }
                             ),
 
                             WidgetComponents().WeeklyCard(
-                              "${min_weekdays_array[changeWeekDay(weekday_counter + 2)]}",
-                              "${monthday + 2}"
+                              getWeekdayName(weekday + 2),
+                              getDay(day + 2).toString(),
+                              (){
+                                setState(() {
+                                  dayCoefficient = 2;
+                                });
+                              }
                             ),
 
                             Container(
@@ -176,8 +256,7 @@ class _SchedulePageState extends State<SchedulePage> {
                               child: GestureDetector(
                                 onTap: (){
                                   setState(() {
-                                    weekday_counter++;
-                                    monthday_counter = 1;
+                                    dayCoefficient = 1;
                                   });
                                 },
 
@@ -193,16 +272,35 @@ class _SchedulePageState extends State<SchedulePage> {
 
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+                          padding: EdgeInsets.only(top: 30, left: 10),
                           
                           child: ListView.builder(
-                            padding: EdgeInsets.only(top: 10, left: 40, right: 20),
-                            itemCount: list_length,
+                            padding: EdgeInsets.only(top: 10),
+                            itemCount: listLength,
                             itemBuilder: (context, index){
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 15),
-                                child: WidgetComponents().ScheduleTask(
-                                  schedule_day_data[index]["name"], Colors.red
+                              return !(scheduleDayData[index]["date"] == null) && !(DateTime.parse(scheduleDayData[index]["date"].toString()) == DateTime(year, month, day))
+                              ? Container()
+                              : Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("${scheduleDayData[index]["initial_time"].substring(0,5)} –"),
+
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 50, right: 30),
+                                      child: WidgetComponents().ScheduleTask(
+                                        scheduleDayData[index]["name"],
+                                        scheduleDayData[index]["description"] ?? "",
+                                        getTaskColor(scheduleDayData[index]["color"]),
+                                        scheduleDayData[index]["initial_time"],
+                                        scheduleDayData[index]["final_time"]
+                                      )
+                                    ),
+
+                                    index + 1 == listLength
+                                    ? Text("${scheduleDayData[index]["final_time"].substring(0,5)} –")
+                                    : Container(),
+                                  ],
                                 ),
                               );
                             }
