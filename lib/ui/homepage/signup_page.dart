@@ -15,6 +15,7 @@ class _SignUpPageState extends State<SignUpPage> {
   GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
 
   bool invisible = true;
+  bool invisiblee = true;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -127,15 +128,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintText: "Digite sua Senha",
                     padding: EdgeInsets.only(top: 10),
                     keyboardType: TextInputType.text,
-                    obscureText: invisible,
+                    obscureText: invisiblee,
                     suffixIcon: GestureDetector(
                       onTap: (){
                         setState(() {
-                          invisible = !invisible;
+                          invisiblee = !invisiblee;
                         });
                       },
                       child: Icon(
-                        invisible ? Icons.visibility_off : Icons.visibility,
+                        invisiblee ? Icons.visibility_off : Icons.visibility,
                         color: Color.fromARGB(255, 255, 104, 132),
                       ),
                     ),
