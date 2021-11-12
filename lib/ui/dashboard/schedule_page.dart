@@ -274,7 +274,7 @@ class _SchedulePageState extends State<SchedulePage>
                         child: Padding(
                           padding: EdgeInsets.only(top: 30, left: 10),
                           
-                          child: ListView.builder(
+                          child: listLength > 0 ? ListView.builder(
                             padding: EdgeInsets.only(top: 10),
                             itemCount: listLength,
                             itemBuilder: (context, index){
@@ -298,12 +298,37 @@ class _SchedulePageState extends State<SchedulePage>
                                     ),
 
                                     index + 1 == listLength
-                                    ? Text("${scheduleDayData[index]["final_time"].substring(0,5)} –")
+                                    ? Padding(
+                                      padding: EdgeInsets.only(bottom: 100),
+                                      child: Text("${scheduleDayData[index]["final_time"].substring(0,5)} –"),
+                                    ) 
                                     : Container(),
                                   ],
                                 ),
                               );
                             }
+                          )
+                          : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Nenhuma tarefa cadastrada",
+                                style: TextStyle(
+                                  fontSize: 20
+                                ),
+                              ),
+
+                              const Text(
+                                "Toque em + para adicionar",
+                                style: TextStyle(
+                                  fontSize: 20
+                                ),
+                              ),
+
+                              Container(
+                                padding: EdgeInsets.only(bottom: 100),
+                              )
+                            ],
                           ),
                         )
                       )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 
 class WidgetComponents
 {
@@ -193,5 +192,35 @@ class WidgetComponents
         )
       );
     }
+  }
+
+  Widget NavigationBall(bool isActive)
+  {
+    return Container(
+      height: 30,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 150),
+        margin: EdgeInsets.symmetric(horizontal: 4.0),
+        height: 10,
+        width: 12,
+        
+        decoration: BoxDecoration(
+          boxShadow: [
+            isActive
+            ? BoxShadow(
+              color: Colors.black,
+              blurRadius: 0,
+              spreadRadius: 3.0,
+            )
+            : BoxShadow(
+              color: Colors.transparent,
+            )
+          ],
+          
+          shape: BoxShape.circle,
+          color: isActive ? Colors.white : Colors.black,
+        ),
+      ),
+    );
   }
 }
