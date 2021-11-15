@@ -43,6 +43,116 @@ class WidgetComponents
     );
   }
 
+  Widget TaskFormField({controller, padding = 0,maxLines, contentPadding , validator, keyboardType = TextInputType.text}){
+    return Padding(
+      padding: padding,
+
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        validator: validator,
+        maxLines: maxLines,
+
+        decoration: InputDecoration(
+          fillColor: Color.fromARGB(255, 255, 255, 255),
+          filled: true,
+          contentPadding: contentPadding,
+
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(9),
+            borderSide: BorderSide(color: Colors.black12),
+
+          ),
+          
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(9),
+            borderSide: BorderSide(color: Colors.black38)
+      )
+    ),
+  ),
+ );
+}
+
+Widget ButtonCreateTask(onPressed){
+  final shape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(9)
+  );
+
+  return Material(
+    color: Colors.transparent,
+    shape: shape,
+    elevation: 8,
+    child: Container(
+      decoration: ShapeDecoration(
+        shape: shape,
+        gradient: LinearGradient(
+          begin: Alignment(-1, -1),
+          end: Alignment(6, 6),
+          colors: [
+            Color.fromARGB(255, 255, 156, 174),
+            Colors.white,
+          ]
+          ),
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.only(bottom:5,top: 5,left: 30, right:30),
+  
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          primary: Colors.transparent,
+          shadowColor: Colors.transparent,
+        ),
+        child: Icon(Icons.done, size: 36,),
+
+        onPressed: onPressed,
+      ),
+    ),
+  );
+}
+
+  Widget CronogramTaskCard(String day, ontap, {selected = false}){
+    return Padding(
+      padding: EdgeInsets.only(left: 5, right: 5),
+      child: Container(
+        width: 40,
+        decoration: BoxDecoration(
+          color: selected ? Color.fromARGB(255, 255, 156, 174) : Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12.withOpacity(0.3),
+              spreadRadius: 0.1,
+              blurRadius: 2,
+              offset: Offset(1,1)
+            )
+          ]
+        ),
+        
+        child: InkWell(
+          onTap: ontap,
+          borderRadius: BorderRadius.circular(10),
+
+          child: Padding(
+          padding: EdgeInsets.only(top: 20, bottom: 20),
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  day,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: selected ? Colors.white : Colors.black
+                  ),
+                ),
+              ]
+            )
+          )
+        )
+      )
+    );
+  }
+
   Widget WeeklyCard(String weekday, String monthday, ontap, {actual = false})
   {
     return Padding(
