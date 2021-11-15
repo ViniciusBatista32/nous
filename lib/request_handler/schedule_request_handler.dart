@@ -10,11 +10,4 @@ class ScheduleRequests
     http.Response response = await http.get(requestUri);
     return json.decode(response.body);
   }
-
-  Future<Map> getSchedule() async
-  {
-    Uri requestUri = Uri.parse("${Config().baseUrl}schedule.php?api_key=${Config().apiKey}&action=signup");
-    http.Response response = await http.get(requestUri);
-    return json.decode(response.body);
-  }
 }

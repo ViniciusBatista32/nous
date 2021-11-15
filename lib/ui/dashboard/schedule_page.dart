@@ -141,9 +141,7 @@ class _SchedulePageState extends State<SchedulePage>
             child: const Text(
               "Cronograma",
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 40,
-                fontFamily: "Quicksand",
                 fontWeight: FontWeight.w500
               ),
             )
@@ -272,7 +270,7 @@ class _SchedulePageState extends State<SchedulePage>
 
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(top: 30, left: 10),
+                          padding: EdgeInsets.only(top: 30, left: 10, right: 10),
                           
                           child: listLength > 0 ? ListView.builder(
                             padding: EdgeInsets.only(top: 10),
@@ -287,7 +285,7 @@ class _SchedulePageState extends State<SchedulePage>
                                     Text("${scheduleDayData[index]["initial_time"].substring(0,5)} –"),
 
                                     Padding(
-                                      padding: EdgeInsets.only(left: 50, right: 30),
+                                      padding: EdgeInsets.only(left: 50, right: 20),
                                       child: WidgetComponents().ScheduleTask(
                                         scheduleDayData[index]["name"],
                                         scheduleDayData[index]["description"] ?? "",

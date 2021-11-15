@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/functions/local_storage_functions.dart';
 import 'package:nous/functions/schedule_functions.dart';
+import 'package:nous/functions/todo_functions.dart';
 import 'package:nous/request_handler/users_request_handler.dart';
 
 class UsersFunctions
@@ -33,7 +34,9 @@ class UsersFunctions
         global_user_data = request["data"];
         
         ScheduleFunctions().getUserSchedules(request["data"]["id"]).then((value){
-          Get.offAndToNamed("/dashboard");
+          TodoFunctions().getUserTodo(request["data"]["id"]).then((value){
+            Get.offAndToNamed("/dashboard");
+          });
         });
       });
 

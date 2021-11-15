@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nous/components/widgets.dart';
+import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/ui/dashboard/dashboard_home_page.dart';
 import 'package:nous/ui/dashboard/schedule_page.dart';
 import 'package:nous/ui/dashboard/todo_page.dart';
@@ -28,77 +29,60 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       key: _key,
 
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 242, 244, 244),
+        shadowColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: Colors.black, size: 30
+        ),
+
+        actions: [
+          Container(
+            alignment: Alignment.centerRight,
+            padding: EdgeInsets.only(right: 20),
+
+            child: Text(
+              global_user_data["name"],
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 17
+              ),
+            ),
+          )
+        ],
+      ),
+
       body: Stack(
         children: [
-          Column(
-            children: [
-              Container(
-                padding: EdgeInsets.only(left: 20, top: 30, right: 20),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 242, 244, 244)
-                ),
+          Container(
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 242, 244, 244)
+            ),
 
-                child: Row(
-                  children: [
+            child: PageView(
+              onPageChanged: (page){
+                setState(() {
+                  firstBallIsActive = false;
+                  secondBallIsActive = false;
+                  thirdBallIsActive = false;
 
-                    GestureDetector(
-                      onTap: () => _key.currentState!.openDrawer(),
+                  if(page == 0)
+                    firstBallIsActive = true;
+                  else if(page == 1)
+                    secondBallIsActive = true;
+                  else if(page == 2)
+                    thirdBallIsActive = true;
+                });
+              },
 
-                      child: Icon(
-                        Icons.menu,
-                        size: 30,
-                      )
-                    ),
+              children: [
+                DashboardHomePage(),
 
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.centerRight,
+                SchedulePage(),
 
-                        child: Text(
-                          "Bem-vindo ao seu",
-                          style: TextStyle(
-                            fontSize: 16
-                          ),
-                        ),
-                      ),
-                    )
-                  ]
-                )
-              ),
-
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 242, 244, 244)
-                  ),
-
-                  child: PageView(
-                    onPageChanged: (page){
-                      setState(() {
-                        firstBallIsActive = false;
-                        secondBallIsActive = false;
-                        thirdBallIsActive = false;
-
-                        if(page == 0)
-                          firstBallIsActive = true;
-                        else if(page == 1)
-                          secondBallIsActive = true;
-                        else if(page == 2)
-                          thirdBallIsActive = true;
-                      });
-                    },
-
-                    children: [
-                      DashboardHomePage(),
-
-                      SchedulePage(),
-
-                      TodoPage()
-                    ],
-                  )
-                ),
-              ),
-            ],
+                TodoPage()
+              ],
+            )
           ),
 
           Column(
