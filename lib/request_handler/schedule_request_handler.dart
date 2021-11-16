@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class ScheduleRequests
 {
-  Future getUserSchedules(user_id) async
+  Future getUserSchedule(user_id) async
   {
     Uri requestUri = Uri.parse("${Config().baseUrl}schedule.php?api_key=${Config().apiKey}&action=get_user_schedule&user_id=$user_id");
     http.Response response = await http.get(requestUri);

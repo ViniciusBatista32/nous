@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
 import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/functions/todo_functions.dart';
 
@@ -34,16 +35,28 @@ class _TodoPageState extends State<TodoPage> {
           ),
 
           Expanded(
-            child: ListView.builder(
+            child: listLenght > 0
+            ? ListView.builder(
               itemCount: listLenght,
               
               itemBuilder: (context, index){
-                return Padding(
+                return  Padding(
                   padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
 
                   child: Dismissible(
                     onDismissed: (direction){
+                      setState(() {
+                        var tempData = global_todo_data[index];
 
+                        global_todo_data.removeAt(index);
+                        listLenght = global_todo_data.length;
+
+                        TodoFunctions().deleteTodoTask(global_user_data["id"], tempData["id"]).then((value){
+                          if(Get.isSnackbarOpen ?? false){}
+                          else
+                            Get.snackbar("Tarefa removida", "A tarefa: \"${tempData['description']}\" foi removida");
+                        });
+                      });
                     },
 
                     key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
@@ -78,7 +91,7 @@ class _TodoPageState extends State<TodoPage> {
 
                             global_todo_data[index]["completed"] = actual_completed == "0" ? "1" : "0";
 
-                            TodoFunctions().checkUserTodo(
+                            TodoFunctions().checkTodoTask(
                               global_user_data["id"],
                               global_todo_data[index]["id"],
                               actual_completed == "0" ? 1 : 0
@@ -106,7 +119,29 @@ class _TodoPageState extends State<TodoPage> {
                   )
                 );
               },
-            ),
+            )
+            : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Nenhuma tarefa cadastrada",
+                  style: TextStyle(
+                    fontSize: 20
+                  ),
+                ),
+
+                const Text(
+                  "Toque em + para adicionar",
+                  style: TextStyle(
+                    fontSize: 20
+                  ),
+                ),
+
+                Container(
+                  padding: EdgeInsets.only(bottom: 150),
+                )
+              ],
+            )
           )
         ]
       )

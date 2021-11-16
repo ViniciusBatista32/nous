@@ -4,9 +4,9 @@ import 'package:nous/request_handler/schedule_request_handler.dart';
 
 class ScheduleFunctions
 {
-  Future getUserSchedules(user_id) async
+  Future getUserSchedule(user_id) async
   {
-    final request = await ScheduleRequests().getUserSchedules(user_id);
+    final request = await ScheduleRequests().getUserSchedule(user_id);
 
     if(request["request_status"]["status"] == 0)
     {

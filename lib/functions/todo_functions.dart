@@ -24,9 +24,28 @@ class TodoFunctions
     }
   }
 
-  Future checkUserTodo(user_id, task_id, completed) async
+  Future checkTodoTask(user_id, task_id, completed) async
   {
     final request = await TodoRequests().checkTodoTask(user_id, task_id, completed);
+
+    if(request["request_status"]["status"] == 0)
+    {
+      LocalStorageFunctions().saveData(global_todo_data, "todo_data.json");
+      return true;
+    }
+    else if(request["request_status"]["status"] == 1)
+    {
+      return false;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  Future deleteTodoTask(user_id, task_id) async
+  {
+    final request = await TodoRequests().deleteTodoTask(user_id, task_id);
 
     if(request["request_status"]["status"] == 0)
     {

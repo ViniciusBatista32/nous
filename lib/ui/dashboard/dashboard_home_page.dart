@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nous/ui/aside/timer.dart';
 
 class DashboardHomePage extends StatefulWidget {
   const DashboardHomePage();
@@ -164,7 +165,10 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                         margin: EdgeInsets.only(top: 20),
 
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()),
+                            );
+                          },
                           icon: Icon(Icons.timer),
                           color: Color.fromARGB(255, 255, 255, 255),
                           iconSize: 24,
@@ -188,78 +192,78 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                 ),
               ),
 
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.fitness_center, size: 24, color: Color.fromARGB(255, 77, 77, 77)),
-                      
-                      Container(
-                        margin: EdgeInsets.only(left: 10, bottom: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.fitness_center, size: 24, color: Color.fromARGB(255, 77, 77, 77)),
+                        
+                        Container(
+                          margin: EdgeInsets.only(left: 10, bottom: 10),
 
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Academia",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
-                                color: Color.fromARGB(255, 77, 77, 77),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Academia",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 77, 77, 77),
+                                ),
                               ),
-                            ),
 
-                            Text(
-                              "13:00",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 77, 77, 77),
-                              ),
-                            )
-                          ],
+                              Text(
+                                "13:00",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 77, 77, 77),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.book, size: 24, color: Color.fromARGB(255, 77, 77, 77)),
-                      
-                      Container(
-                        margin: EdgeInsets.only(left: 10),
+                      ],
+                    ),
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.book, size: 24, color: Color.fromARGB(255, 77, 77, 77)),
+                        
+                        Container(
+                          margin: EdgeInsets.only(left: 10),
 
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Ler um livro",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
-                                color: Color.fromARGB(255, 77, 77, 77),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Ler um livro",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 77, 77, 77),
+                                ),
                               ),
-                            ),
 
-                            Text(
-                              "15:00",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 77, 77, 77),
-                              ),
-                            )
-                          ],
+                              Text(
+                                "15:00",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 77, 77, 77),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),                  
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                )
               )
-            )
             ],
           ),
 

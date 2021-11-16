@@ -17,4 +17,11 @@ class TodoRequests
     http.Response response = await http.get(requestUri);
     return json.decode(response.body);
   }
+
+  Future deleteTodoTask(user_id, task_id) async
+  {
+    Uri requestUri = Uri.parse("${Config().baseUrl}todo.php?api_key=${Config().apiKey}&action=delete_todo_task&user_id=$user_id&task_id=$task_id");
+    http.Response response = await http.get(requestUri);
+    return json.decode(response.body);
+  }
 }

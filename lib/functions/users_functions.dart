@@ -33,7 +33,7 @@ class UsersFunctions
       LocalStorageFunctions().saveData(request["data"], "user_data.json").then((data){
         global_user_data = request["data"];
         
-        ScheduleFunctions().getUserSchedules(request["data"]["id"]).then((value){
+        ScheduleFunctions().getUserSchedule(request["data"]["id"]).then((value){
           TodoFunctions().getUserTodo(request["data"]["id"]).then((value){
             Get.offAndToNamed("/dashboard");
           });
