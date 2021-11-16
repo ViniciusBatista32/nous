@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nous/ui/aside/timer.dart';
 
 class DashboardHomePage extends StatefulWidget {
   const DashboardHomePage();
@@ -170,7 +171,10 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                           margin: EdgeInsets.only(top: 20),
 
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()),
+                              );
+                            },
                             icon: Icon(Icons.timer),
                             color: Color.fromARGB(255, 255, 255, 255),
                             iconSize: 24,
