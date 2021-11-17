@@ -19,10 +19,13 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  final GlobalKey _pageViewkey = GlobalKey();
 
   bool firstBallIsActive = true;
   bool secondBallIsActive = false;
   bool thirdBallIsActive = false;
+  
+  int actualPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +63,11 @@ class _DashboardState extends State<Dashboard> {
             ),
 
             child: PageView(
+              key: _pageViewkey,
               onPageChanged: (page){
                 setState(() {
+                  actualPage = page;
+
                   firstBallIsActive = false;
                   secondBallIsActive = false;
                   thirdBallIsActive = false;
@@ -107,10 +113,10 @@ class _DashboardState extends State<Dashboard> {
       ),
 
       drawer: Drawer(
-        child: ListView(
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            const DrawerHeader(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: const[
+            DrawerHeader(
               child: Center(
                 child: DrawerHeader(
                   decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 0.5, color: Color.fromARGB(255, 255, 156, 174)))),
@@ -121,28 +127,29 @@ class _DashboardState extends State<Dashboard> {
               )
             ),
 
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.dashboard),
               enabled: true,
               title: Text('Dashboard'),
             ),
 
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.book),
               title: Text('Artigos'),
             ),
 
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.insert_chart_outlined),
               title: Text('Produtividade'),
             ),
 
-            Container(
-              height: MediaQuery.of(context).size.height * 0.525,
-              alignment: FractionalOffset.bottomCenter,
-              child: const ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Configurações')
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Configurações')
+                ),
               )
             )
           ],
@@ -151,6 +158,11 @@ class _DashboardState extends State<Dashboard> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: (){
+          Navigator.pushNamed(
+            context,
+            "/createTask",
+            arguments: actualPage
+          );
         },
         backgroundColor: const Color.fromARGB(255, 255, 104, 132),
 

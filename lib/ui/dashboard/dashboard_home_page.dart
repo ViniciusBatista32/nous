@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nous/config.dart';
+import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/ui/aside/timer.dart';
 
 class DashboardHomePage extends StatefulWidget {
@@ -11,6 +13,64 @@ class DashboardHomePage extends StatefulWidget {
 class _DashboardHomePageState extends State<DashboardHomePage> {
   @override
   Widget build(BuildContext context) {
+    var weekday = DateTime.now().weekday - 1;
+
+    var actualTaskData;
+    var firstNextTaskData;
+    var secondNextTaskData;
+
+    bool stop = false;
+    int count = 0;
+
+    global_schedule_data[weekday].forEach((data){
+      if(!stop)
+      {
+        var now = DateTime.now();
+        var initialDate = DateTime.parse("${now.year}-${now.month}-${now.day} ${data['initial_time']}");
+        var finalDate = DateTime.parse("${now.year}-${now.month}-${now.day} ${data['final_time']}");
+
+        if(now.isAfter(initialDate) && now.isBefore(finalDate))
+        {
+          stop = true;
+
+          actualTaskData = data;
+
+          if(!(count + 1 >= global_schedule_data[weekday].length))
+            firstNextTaskData = global_schedule_data[weekday][count + 1];
+
+          if(!(count + 2 >= global_schedule_data[weekday].length))
+            secondNextTaskData = global_schedule_data[weekday][count + 2];
+        }
+        else
+          count++;
+      }
+    });
+
+    stop = false;
+    count = 0;
+
+    if(actualTaskData == null)
+    {
+      global_schedule_data[weekday].forEach((data){
+        if(!stop)
+        {
+          var now = DateTime.now();
+          var initialDate = DateTime.parse("${now.year}-${now.month}-${now.day} ${data['initial_time']}");
+
+          if(now.isBefore(initialDate))
+          {
+            firstNextTaskData = data;
+            stop = true;
+          }
+          else
+            count++;
+
+          if(!(count + 1 >= global_schedule_data[weekday].length))
+            secondNextTaskData = global_schedule_data[weekday][count + 1];
+        }
+      });
+    }
+
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
       alignment: Alignment.topRight,
@@ -53,7 +113,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                   child: TextButton(
                     onPressed: () {},
 
-                    child: Text(
+                    child: const Text(
                       "Cronograma",
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
@@ -73,7 +133,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                 ),
 
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: Colors.transparent
                   ),
@@ -110,29 +170,30 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                   color: Color.fromARGB(255, 255, 104, 132),
             ),
 
-            child: Row(
+            child: actualTaskData != null
+              ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.video_call, color: Colors.white, size: 49,),
+                Icon(Config().getTaskIcon(actualTaskData["icon"]), color: Colors.white, size: 49),
 
                 Column(
                   children: [
                     Text(
-                      "Reunião",
+                      actualTaskData["name"],
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: Colors.white,
                       )
                     ),
 
                     Text(
-                      "12:30",
+                      actualTaskData["final_time"].substring(0,5),
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: Colors.white,
                       )
                     )
                   ],
@@ -155,7 +216,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -166,38 +227,66 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
 
                         child: IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()),
-                            );
+                            Navigator.pushNamed(context, "/timer");
                           },
                           icon: Icon(Icons.timer),
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: Colors.white,
                           iconSize: 24,
                         ),
                       ),
                     ],
                   ),
                 )
-              ],
-            ),
+              ]
+            )
+            : Container(
+              padding: EdgeInsets.only(top: 10, bottom: 10),
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Text(
+                    "Nenhuma tarefa",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Colors.white,
+                    )
+                  ),
+
+                  Text(
+                    "no momento",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Colors.white,
+                    )
+                  ),
+                ],
+              )
+            )
           ),
 
           Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 15, left: 10, bottom: 20),
+                padding: EdgeInsets.only(top: 15, left: 15, bottom: 15),
                 margin: EdgeInsets.only(top: 15),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
                 ),
-              ),
 
                 child: Column(
                   children: [
-                    Row(
+                    firstNextTaskData != null
+                    ? Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.fitness_center, size: 24, color: Color.fromARGB(255, 77, 77, 77)),
+                        Icon(
+                          Config().getTaskIcon(firstNextTaskData["icon"]),
+                          size: 24,
+                          color: Color.fromARGB(255, 77, 77, 77)
+                        ),
                         
                         Container(
                           margin: EdgeInsets.only(left: 10, bottom: 10),
@@ -206,7 +295,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Academia",
+                                firstNextTaskData["name"],
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
@@ -215,7 +304,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                               ),
 
                               Text(
-                                "13:00",
+                                firstNextTaskData["initial_time"].substring(0,5),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16,
@@ -226,12 +315,18 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                           ),
                         ),
                       ],
-                    ),
+                    )
+                    : Container(),
                     
-                    Row(
+                    secondNextTaskData != null
+                    ? Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.book, size: 24, color: Color.fromARGB(255, 77, 77, 77)),
+                        Icon(
+                          Config().getTaskIcon(secondNextTaskData["icon"]),
+                          size: 24,
+                          color: Color.fromARGB(255, 77, 77, 77)
+                        ),
                         
                         Container(
                           margin: EdgeInsets.only(left: 10),
@@ -240,7 +335,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Ler um livro",
+                                secondNextTaskData["name"],
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
@@ -249,7 +344,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                               ),
 
                               Text(
-                                "15:00",
+                                secondNextTaskData["initial_time"].substring(0,5),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16,
@@ -260,7 +355,32 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                           ),
                         ),
                       ],
-                    ),
+                    )
+                    : const SizedBox(),
+
+                    firstNextTaskData == null && secondNextTaskData == null
+                    ? Container(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const[
+                          Text(
+                            "Sem próximas tarefas",
+                            style: TextStyle(
+                              fontSize: 15
+                            ),
+                          ),
+
+                          Text(
+                            "Toque em + para adicionar",
+                            style: TextStyle(
+                              fontSize: 15
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    : const SizedBox(),
                   ],
                 )
               )
@@ -286,7 +406,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
             height: 190,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20),),
-              color: Color.fromARGB(255, 255, 255, 255),
+              color: Colors.white,
             ),
           )
         ],

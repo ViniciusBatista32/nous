@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:nous/functions/local_storage_functions.dart';
 import 'package:nous/functions/users_functions.dart';
-import 'package:nous/request_handler/todo_request_handler.dart';
 
+// Route imports
 import 'package:nous/ui/home_page.dart';
 import 'package:nous/ui/loading_screen.dart';
 import 'package:nous/ui/dashboard.dart';
+import 'package:nous/ui/aside/timer.dart';
+import 'package:nous/ui/aside/create_task.dart';
+import 'package:nous/ui/aside/edit_task.dart';
 
 main() async
 {
@@ -22,12 +26,23 @@ main() async
       fontFamily: "Quicksand",
     ),
 
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate
+    ],
+
+    supportedLocales: const [
+      Locale('pt', 'BR')
+    ],
+
     initialRoute: "/loading",
 
     routes: {
-      "/homepage":  (context) => HomePage(),
-      "/loading":   (context) => LoadingScreen(),
-      "/dashboard": (context) => Dashboard()
+      "/homepage":   (context) => HomePage(),
+      "/loading":    (context) => LoadingScreen(),
+      "/dashboard":  (context) => Dashboard(),
+      "/timer":      (context) => Timer(),
+      "/createTask": (context) => CreateTask(),
+      "/editTask":   (context) => EditTask(),
     },
   ));
 

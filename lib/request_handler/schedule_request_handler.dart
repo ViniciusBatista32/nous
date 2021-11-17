@@ -10,4 +10,11 @@ class ScheduleRequests
     http.Response response = await http.get(requestUri);
     return json.decode(response.body);
   }
+
+  Future createScheduleTask() async
+  {
+    Uri requestUri = Uri.parse("${Config().baseUrl}schedule.php?api_key=${Config().apiKey}&action=create_user_schedule");
+    http.Response response = await http.get(requestUri);
+    return json.decode(response.body);
+  }
 }

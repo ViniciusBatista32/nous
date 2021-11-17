@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nous/config.dart';
 import 'package:nous/components/widgets.dart';
 import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/ui/dashboard.dart';
@@ -56,44 +57,6 @@ class _SchedulePageState extends State<SchedulePage>
   {
     DateTime newDate = DateTime(year, month, coefficient);
     return newDate.day;
-  }
-
-  getTaskColor(colorNumber)
-  {
-    switch (colorNumber) {
-      case "0":
-        return Colors.red;
-
-      case "1":
-        return Colors.orange;
-      
-      case "2":
-        return Colors.yellow;
-
-      case "3":
-        return Colors.lime;
-
-      case "4":
-        return Colors.green;
-
-      case "5":
-        return Colors.lightBlue;
-
-      case "6":
-        return Colors.purple;
-
-      case "7":
-        return Colors.pink;
-
-      case "8":
-        return Colors.brown;
-
-      case "9":
-        return Colors.black;
-
-      default:
-        return Colors.black;
-    }
   }
 
   @override
@@ -284,15 +247,20 @@ class _SchedulePageState extends State<SchedulePage>
                                   children: [
                                     Text("${scheduleDayData[index]["initial_time"].substring(0,5)} –"),
 
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 50, right: 20),
-                                      child: WidgetComponents().ScheduleTask(
-                                        scheduleDayData[index]["name"],
-                                        scheduleDayData[index]["description"] ?? "",
-                                        getTaskColor(scheduleDayData[index]["color"]),
-                                        scheduleDayData[index]["initial_time"],
-                                        scheduleDayData[index]["final_time"]
-                                      )
+                                    GestureDetector(
+                                      onLongPress: (){
+                                        Navigator.pushNamed(context, "/editTask");
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 50, right: 20),
+                                        child: WidgetComponents().ScheduleTask(
+                                          scheduleDayData[index]["name"],
+                                          scheduleDayData[index]["description"] ?? "",
+                                          Config().getTaskColor(scheduleDayData[index]["color"]),
+                                          scheduleDayData[index]["initial_time"],
+                                          scheduleDayData[index]["final_time"]
+                                        )
+                                      ),
                                     ),
 
                                     index + 1 == listLength

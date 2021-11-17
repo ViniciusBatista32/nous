@@ -23,4 +23,33 @@ class ScheduleFunctions
       return false;
     }
   }
+
+  Future createScheduleTask({
+    required userid,
+    required name,
+    required description,
+    required initialTime,
+    required finalTime,
+    required color,
+    required icon,
+    required noRepeat
+  }) async
+  {
+    final request = await ScheduleRequests().createScheduleTask();
+
+    if(request["request_status"]["status"] == 0)
+    {
+      LocalStorageFunctions().saveData(request["data"], "schedule_data.json");
+      global_schedule_data = request["data"];
+      return true;
+    }
+    else if(request["request_status"]["status"] == 1)
+    {
+      return false;
+    }
+    else
+    {
+      return false;
+    }
+  }
 }
