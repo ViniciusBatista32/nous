@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nous/config.dart';
 
 class WidgetComponents
 {
@@ -82,6 +84,7 @@ Widget ButtonCreateTask(onPressed){
     color: Colors.transparent,
     shape: shape,
     elevation: 8,
+
     child: Container(
       decoration: ShapeDecoration(
         shape: shape,
@@ -92,19 +95,21 @@ Widget ButtonCreateTask(onPressed){
             Color.fromARGB(255, 255, 156, 174),
             Colors.white,
           ]
-          ),
+        ),
       ),
+
       child: ElevatedButton(
+        onPressed: onPressed,
+        
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.only(bottom:5,top: 5,left: 30, right:30),
-  
+
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           primary: Colors.transparent,
           shadowColor: Colors.transparent,
         ),
-        child: Icon(Icons.done, size: 36,),
 
-        onPressed: onPressed,
+        child: Icon(Icons.done, size: 36,),
       ),
     ),
   );
@@ -331,6 +336,53 @@ Widget ButtonCreateTask(onPressed){
           color: isActive ? Colors.white : Colors.black,
         ),
       ),
+    );
+  }
+
+  Widget SelectColorBox(color, onTap)
+  {
+    return Container(
+      padding: EdgeInsets.all(5),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Config().getTaskColor(color),
+            borderRadius: const BorderRadius.all(Radius.circular(10))
+          ),
+          width: 40,
+          height: 40,
+        ),
+      )
+    );
+  }
+
+  Widget SelectIcon(icon, onTap)
+  {
+    return Container(
+      padding: EdgeInsets.all(8),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Icon(
+          Config().getTaskIcon(icon),
+          size: 40,
+          color: Colors.grey.shade800,
+        ),
+      )
+    );
+  }
+
+  Widget SelectIconRow(icons, onTap)
+  {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SelectIcon(icons[0], () => onTap(icons[0])),
+        SelectIcon(icons[1], () => onTap(icons[1])),
+        SelectIcon(icons[2], () => onTap(icons[2])),
+        SelectIcon(icons[3], () => onTap(icons[3])),
+        SelectIcon(icons[4], () => onTap(icons[4]))
+      ],
     );
   }
 }

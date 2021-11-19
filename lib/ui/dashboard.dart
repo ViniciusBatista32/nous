@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nous/components/widgets.dart';
+import 'package:nous/config.dart';
 import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/ui/dashboard/dashboard_home_page.dart';
 import 'package:nous/ui/dashboard/schedule_page.dart';
 import 'package:nous/ui/dashboard/todo_page.dart';
 
-var globalYear = null;
-var globalMonth = null;
-var globalDay = null;
-var globalWeekday = null;
+var globalYear = DateTime.now().year;
+var globalMonth = DateTime.now().month;
+var globalDay = DateTime.now().day;
+var globalWeekday = DateTime.now().weekday;
 
 class Dashboard extends StatefulWidget {
   Dashboard();
@@ -19,7 +20,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final GlobalKey _pageViewkey = GlobalKey();
+  final _pageController = PageController(initialPage: dashboard_page);
 
   bool firstBallIsActive = true;
   bool secondBallIsActive = false;
@@ -63,7 +64,7 @@ class _DashboardState extends State<Dashboard> {
             ),
 
             child: PageView(
-              key: _pageViewkey,
+              controller: _pageController,
               onPageChanged: (page){
                 setState(() {
                   actualPage = page;
@@ -161,9 +162,12 @@ class _DashboardState extends State<Dashboard> {
           Navigator.pushNamed(
             context,
             "/createTask",
-            arguments: actualPage
-          );
+            arguments: CreateTaskArguments(actualPage, globalWeekday)
+          ).then((value){
+            setState(() {});
+          });
         },
+        
         backgroundColor: const Color.fromARGB(255, 255, 104, 132),
 
         child: const Text(

@@ -9,7 +9,7 @@ import 'package:nous/request_handler/users_request_handler.dart';
 
 class UsersFunctions
 {
-  void snackBar(String title, String description)
+  snackbar(String title, String description)
   {
     if(Get.isSnackbarOpen ?? false){}
     else
@@ -44,7 +44,7 @@ class UsersFunctions
     }
     else if(request["request_status"]["status"] == 1)
     {
-      snackBar("Servidor em Manutenção", "Tente novamente mais tarde");
+      snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
 
       return false;
     }
@@ -53,19 +53,19 @@ class UsersFunctions
       switch (request["request_status"]["error_code"])
       {
         case 4:
-          snackBar("Login Inválido", "O email informado não existe");
+          snackbar("Login Inválido", "O email informado não existe");
         break;
 
         case 6:
-          snackBar("Login Inválido", "A senha informada está incorreta");
+          snackbar("Login Inválido", "A senha informada está incorreta");
         break;
 
         case 11:
-          snackBar("Cadastro não confirmado", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+          snackbar("Cadastro não confirmado", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
         break;
 
         default:
-          snackBar("Não foi possível fazer login", "Tente novamente mais tarde");
+          snackbar("Não foi possível fazer login", "Tente novamente mais tarde");
         break;
       }
 
@@ -83,13 +83,13 @@ class UsersFunctions
 
     if(request["request_status"]["status"] == 0)
     {
-      snackBar("Cadastrado com sucesso", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+      snackbar("Cadastrado com sucesso", "Um email de confirmação foi enviado para sua caixa de emails\nVerifique a caixa de spam");
 
       return true;
     }
     else if(request["request_status"]["status"] == 1)
     {
-      snackBar("Servidor em Manutenção", "Tente novamente mais tarde");
+      snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
 
       return false;
     }
@@ -98,11 +98,11 @@ class UsersFunctions
       switch (request["request_status"]["error_code"])
       {
         case 8:
-          snackBar("Email inválido", "O email informado já está cadastrado");
+          snackbar("Email inválido", "O email informado já está cadastrado");
         break;
 
         default:
-          snackBar("Não foi possível fazer o cadastro", "Tente novamente mais tarde");
+          snackbar("Não foi possível fazer o cadastro", "Tente novamente mais tarde");
         break;
       }
 
@@ -118,13 +118,13 @@ class UsersFunctions
 
     if(request["request_status"]["status"] == 0)
     {
-      snackBar("Email de redefinição enviado", "Um email de redefinição de senha foi enviado para sua caixa de emails\nVerifique a caixa de spam");
+      snackbar("Email de redefinição enviado", "Um email de redefinição de senha foi enviado para sua caixa de emails\nVerifique a caixa de spam");
 
       return true;
     }
     else if(request["request_status"]["status"] == 1)
     {
-      snackBar("Servidor em Manutenção", "Tente novamente mais tarde");
+      snackbar("Servidor em Manutenção", "Tente novamente mais tarde");
 
       return false;
     }
@@ -133,11 +133,11 @@ class UsersFunctions
       switch (request["request_status"]["error_code"])
       {
         case 4:
-          snackBar("Email inválido", "O email informado não existe");
+          snackbar("Email inválido", "O email informado não existe");
         break;
 
         default:
-          snackBar("Não foi possível fazer a requisição de redefinição", "Tente novamente mais tarde");
+          snackbar("Não foi possível fazer a requisição de redefinição", "Tente novamente mais tarde");
         break;
       }
 

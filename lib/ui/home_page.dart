@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget
           color: Color.fromARGB(255, 242, 244, 244)
         ),
         
-        child:PageView(
+        child: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [

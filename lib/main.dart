@@ -34,11 +34,11 @@ main() async
       Locale('pt', 'BR')
     ],
 
-    initialRoute: "/loading",
+    initialRoute: "/",
 
     routes: {
       "/homepage":   (context) => HomePage(),
-      "/loading":    (context) => LoadingScreen(),
+      "/":           (context) => LoadingScreen(),
       "/dashboard":  (context) => Dashboard(),
       "/timer":      (context) => Timer(),
       "/createTask": (context) => CreateTask(),

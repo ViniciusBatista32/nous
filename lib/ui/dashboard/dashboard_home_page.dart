@@ -11,8 +11,17 @@ class DashboardHomePage extends StatefulWidget {
 }
 
 class _DashboardHomePageState extends State<DashboardHomePage> {
+  _timer() async {
+    Future.delayed(Duration(seconds: 5)).then((_) {
+      setState(() {});
+      _timer();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    _timer();
+
     var weekday = DateTime.now().weekday - 1;
 
     var actualTaskData;
@@ -26,20 +35,59 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
       if(!stop)
       {
         var now = DateTime.now();
+        var day = "${now.year}-${now.month}-${now.day}";
         var initialDate = DateTime.parse("${now.year}-${now.month}-${now.day} ${data['initial_time']}");
         var finalDate = DateTime.parse("${now.year}-${now.month}-${now.day} ${data['final_time']}");
 
-        if(now.isAfter(initialDate) && now.isBefore(finalDate))
+        pickFirst()
         {
-          stop = true;
+          if(global_schedule_data[weekday][count + 1]["date"] == null)
+          {
+            if(!(count + 1 >= global_schedule_data[weekday].length))
+              firstNextTaskData = global_schedule_data[weekday][count + 1];
+          }
+          else if(global_schedule_data[weekday][count + 1]["date"] == day)
+          {
+            if(!(count + 1 >= global_schedule_data[weekday].length))
+              firstNextTaskData = global_schedule_data[weekday][count + 1];
+          }
+          else
+          {
+            count ++;
+            pickFirst();
+          }
+        }
 
-          actualTaskData = data;
+        pickSecond()
+        {
+          if(global_schedule_data[weekday][count + 2]["date"] == null)
+          {
+            if(!(count + 2 >= global_schedule_data[weekday].length))
+              secondNextTaskData = global_schedule_data[weekday][count + 2];
+          }
+          else if(global_schedule_data[weekday][count + 1]["date"] == day)
+          {
+            if(!(count + 2 >= global_schedule_data[weekday].length))
+              secondNextTaskData = global_schedule_data[weekday][count + 2];
+          }
+          else
+          {
+            count ++;
+            pickFirst();
+          }
+        }
+        
+        if(now.isAfter(initialDate) && now.isBefore(finalDate) )
+        {
+          if(data["date"] == null || data["date"] == day)
+          {
+            stop = true;
 
-          if(!(count + 1 >= global_schedule_data[weekday].length))
-            firstNextTaskData = global_schedule_data[weekday][count + 1];
+            actualTaskData = data;
 
-          if(!(count + 2 >= global_schedule_data[weekday].length))
-            secondNextTaskData = global_schedule_data[weekday][count + 2];
+            pickFirst();
+            pickSecond();
+          }
         }
         else
           count++;
@@ -61,12 +109,12 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
           {
             firstNextTaskData = data;
             stop = true;
+
+            if(!(count + 1 >= global_schedule_data[weekday].length))
+              secondNextTaskData = global_schedule_data[weekday][count + 1];
           }
           else
             count++;
-
-          if(!(count + 1 >= global_schedule_data[weekday].length))
-            secondNextTaskData = global_schedule_data[weekday][count + 1];
         }
       });
     }
