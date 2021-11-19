@@ -31,6 +31,9 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
     bool stop = false;
     int count = 0;
 
+    bool todo = false;
+    bool noRepeat = false;
+
     global_schedule_data[weekday].forEach((data){
       if(!stop)
       {
@@ -152,60 +155,122 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
             padding: EdgeInsets.only(top: 25),
 
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
 
-              children: [
+                      Container(
+                        decoration: !todo
+                        ? BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 0,
+                              blurRadius: 10,
+                              offset: Offset(0, 2),
+                            )
+                          ]
+                        )
+                        : BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
 
-                Container(
-                  padding: EdgeInsets.zero,
-                  child: TextButton(
-                    onPressed: () {},
+                        padding: EdgeInsets.zero,
+                        child: TextButton(
+                          onPressed: (){
+                            setState((){
+                              todo = !todo;
+                            });
+                          },
 
-                    child: const Text(
-                      "Cronograma",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        color: Color.fromARGB(255, 77, 77, 77),   
+                          child: Text(
+                            "Cronograma",
+                            style: !todo
+                            ? const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 77, 77, 77),   
+                            )
+                            : const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 163, 163, 163),
+                            ),
+                          ),
+        
+                          style: !todo
+                          ? ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
+                            shadowColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 77, 77, 77)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                            )
+                          )
+                          : ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                            )
+                          ),
+                        ),
                       ),
-                    ),
+        
+                      Container(
+                        decoration: todo
+                        ? BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 0,
+                              blurRadius: 10,
+                              offset: Offset(0, 2),
+                            )
+                          ]
+                        )
+                        : BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
 
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
-                      shadowColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 77, 77, 77)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                      )
-                    ),
-                  ),
-                ),
+                        padding: EdgeInsets.zero,
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              todo = !todo;
+                            });
+                          },
 
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.transparent
+                          child: Text(
+                            "To do",
+                            style: todo
+                            ? TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 77, 77, 77),   
+                            )
+                            : TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 163, 163, 163),
+                            ),
+                          ),
+        
+                          style: todo
+                          ? ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
+                            shadowColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 77, 77, 77)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                            )
+                          )
+                          : ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                            )
+                          ),
+                        ),
+                      ),     
+                    ],
                   ),
-                  
-                  child: TextButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                      )
-                    ),
-
-                    child: Text(
-                      "To do",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        color: Color.fromARGB(255, 163, 163, 163),   
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
           ),
           
           Container(

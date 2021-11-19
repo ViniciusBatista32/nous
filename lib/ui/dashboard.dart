@@ -116,7 +116,7 @@ class _DashboardState extends State<Dashboard> {
       drawer: Drawer(
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          children: const[
+          children: [
             DrawerHeader(
               child: Center(
                 child: DrawerHeader(
@@ -132,16 +132,19 @@ class _DashboardState extends State<Dashboard> {
               leading: Icon(Icons.dashboard),
               enabled: true,
               title: Text('Dashboard'),
+              onTap: () => Navigator.pushNamed(context, "/dashboard")
             ),
 
             ListTile(
               leading: Icon(Icons.book),
               title: Text('Artigos'),
+              onTap: () => Navigator.pushNamed(context, "/articles"),
             ),
 
             ListTile(
               leading: Icon(Icons.insert_chart_outlined),
               title: Text('Produtividade'),
+              onTap: () => Navigator.pushNamed(context, "/report"),
             ),
 
             Expanded(
@@ -149,7 +152,8 @@ class _DashboardState extends State<Dashboard> {
                 alignment: Alignment.bottomLeft,
                 child: ListTile(
                   leading: Icon(Icons.settings),
-                  title: Text('Configurações')
+                  title: Text('Configurações'),
+                  onTap: () => Navigator.pushNamed(context, "/configurations")
                 ),
               )
             )
