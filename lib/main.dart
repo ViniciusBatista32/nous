@@ -3,9 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nous/config.dart';
 
 import 'package:nous/functions/local_storage_functions.dart';
 import 'package:nous/functions/users_functions.dart';
+import 'package:nous/ui/aside/articles.dart';
+import 'package:nous/ui/aside/config_page.dart';
+import 'package:nous/ui/aside/report.dart';
 
 // Route imports
 import 'package:nous/ui/home_page.dart';
@@ -43,6 +47,9 @@ main() async
       "/timer":      (context) => Timer(),
       "/createTask": (context) => CreateTask(),
       "/editTask":   (context) => EditTask(),
+      "/articles": (context) => Articles(),
+      "/configurations": (context) => ConfigPage(),
+      "/report": (context) => Report(),
     },
   ));
 
