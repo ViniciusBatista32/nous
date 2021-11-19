@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nous/components/widgets.dart';
 
 class ConfigPage extends StatefulWidget {
   const ConfigPage({ Key? key }) : super(key: key);
@@ -128,11 +129,13 @@ class _ConfigPageState extends State<ConfigPage> {
                               color: Color.fromARGB(255, 255, 156, 174).withOpacity(0.26),
                             )
                           ]
-                        )
+                        ),
+
+                        WidgetComponents().ExpandedOption("Minha conta")
                   ]
                 ),
-                ),
-            )
+              ),
+            ),
           )        
         ],
       ),
