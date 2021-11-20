@@ -8,8 +8,6 @@ import 'package:nous/config.dart';
 import 'package:nous/functions/local_storage_functions.dart';
 import 'package:nous/functions/users_functions.dart';
 import 'package:nous/ui/aside/articles.dart';
-import 'package:nous/ui/aside/config_page.dart';
-import 'package:nous/ui/aside/report.dart';
 
 // Route imports
 import 'package:nous/ui/home_page.dart';
@@ -18,6 +16,7 @@ import 'package:nous/ui/dashboard.dart';
 import 'package:nous/ui/aside/timer.dart';
 import 'package:nous/ui/aside/create_task.dart';
 import 'package:nous/ui/aside/edit_task.dart';
+import 'package:nous/ui/aside/config_page.dart';
 
 main() async
 {
@@ -49,7 +48,6 @@ main() async
       "/editTask":   (context) => EditTask(),
       "/articles": (context) => Articles(),
       "/configurations": (context) => ConfigPage(),
-      "/report": (context) => Report(),
     },
   ));
 

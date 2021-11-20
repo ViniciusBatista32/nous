@@ -483,7 +483,13 @@ class _ConfigPageState extends State<ConfigPage> {
             DrawerHeader(
               child: Center(
                 child: DrawerHeader(
-                  decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 0.5, color: Color.fromARGB(255, 255, 156, 174)))),
+                  decoration: BoxDecoration(
+                    border: Border( 
+                      bottom: BorderSide(
+                      color: Colors.white
+                      )
+                    )
+                  ),
                   child: Image(
                     image: AssetImage('assets/icons/app_icon200x200.png')
                   )
@@ -505,19 +511,26 @@ class _ConfigPageState extends State<ConfigPage> {
             ),
     
             ListTile(
-              leading: Icon(Icons.insert_chart_outlined),
-              title: Text('Produtividade'),
-              onTap: () => Navigator.pushNamed(context, "/report"),
+              leading: Icon(Icons.settings),
+              title: Text('Configurações'),
+              onTap: () => Navigator.popAndPushNamed(context, "/configurations")
             ),
-    
-            Expanded(
-              child: Align(
+
+             Expanded(
+              child: Container(
                 alignment: Alignment.bottomLeft,
-                child: ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Configurações'),
-                  onTap: () => Navigator.popAndPushNamed(context, "/configurations")
-                ),
+                padding: EdgeInsets.only(bottom: 20),
+                  child: TextButton(
+                    onPressed: (){}, 
+                    child: Text(
+                      "Sair",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.red,
+                      )
+                    )
+                  ),
               )
             )
           ],
