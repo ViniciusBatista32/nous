@@ -75,7 +75,7 @@ class WidgetComponents
  );
 }
 
-Widget ButtonCreateTask(onPressed){
+  Widget ButtonCreateTask(onPressed){
   final shape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(9)
   );
@@ -208,41 +208,6 @@ Widget ButtonCreateTask(onPressed){
           )
         )
       )
-    );
-  }
-
-  Widget ExpandedOption(String minhaconta){
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(-2, 0),
-          )
-        ]
-      ),
-
-      child: Theme(
-        data: ThemeData().copyWith(dividerColor: Colors.transparent),
-         child: ExpansionTile(
-           initiallyExpanded: false,
-           textColor: Colors.black,
-           iconColor: Color.fromARGB(255, 255, 156, 174),
-           expandedCrossAxisAlignment: CrossAxisAlignment.center,
-
-           title: Text(
-             minhaconta,
-             style: TextStyle(
-               fontSize: 18,
-               fontWeight: FontWeight.w400,
-             ),
-           ),
-         ) 
-      ),
     );
   }
 
