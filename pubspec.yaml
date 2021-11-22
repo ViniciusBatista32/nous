@@ -90,6 +90,7 @@ flutter:
     - assets/icons/app_icon.png
     - assets/icons/app_icon100x100.png
     - assets/icons/app_icon200x200.png
+    - assets/icons/teste.jpeg
 
 
   # To add assets to your application, add an assets section, like this:

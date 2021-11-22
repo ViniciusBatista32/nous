@@ -385,4 +385,10 @@ class WidgetComponents
       ],
     );
   }
+
+  Widget ArticleCard(String title, String description){
+    return Container(
+
+    );
+  }
 }
