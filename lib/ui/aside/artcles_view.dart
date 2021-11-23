@@ -132,6 +132,46 @@ class _ArticlesViewState extends State<ArticlesView> {
                   )
                 ),
               )
+            ),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20, bottom: 20),
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  decoration: 
+                    BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0,
+                          blurRadius: 10,
+                          offset: Offset(0, 2),
+                        )
+                      ]
+                    ),
+                  child: TextButton.icon(
+                    onPressed: (){},
+                    icon: Icon(Icons.report_problem, size: 24, color: Colors.red),
+                    label: Text(
+                      "Denunciar",
+                        style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
+                      shadowColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 77, 77, 77)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                      )
+                    ),
+                  ),
+                ),
+              ),
             )
           ],
       )
