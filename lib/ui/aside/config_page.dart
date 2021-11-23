@@ -405,7 +405,7 @@ class _ConfigPageState extends State<ConfigPage> {
                                                   ),
                                                 ),
 
-                                                                                                Container(
+                                                Container(
                                                   padding: EdgeInsets.only(top: 10),
                                                   margin: EdgeInsets.only(bottom: 20),
               

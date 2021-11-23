@@ -130,6 +130,7 @@ class _ArticlesViewState extends State<ArticlesView> {
                     "A diferidas percepções e perspectivas de tempo pelos pacientes com TDAH operam como indicador fundamental relacionado ao grau da doença. Os pacientes que possuem um grau mais elevado de TDAH podem sofrer deturpações da passagem do tempo natural, ocasionando situações constrangedoras. ",
                     textAlign: TextAlign.justify,
                     style: TextStyle(
+                      letterSpacing: 0.5,
                       decoration: TextDecoration.none,
                       fontSize: 16,
                       color: Colors.black,
@@ -145,9 +146,8 @@ class _ArticlesViewState extends State<ArticlesView> {
                 padding: const EdgeInsets.only(right: 20, bottom: 20),
                 child: Container(
                   alignment: Alignment.bottomRight,
-                  decoration: 
-                    BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                  child: Container(
+                    decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -157,23 +157,24 @@ class _ArticlesViewState extends State<ArticlesView> {
                         )
                       ]
                     ),
-                  child: TextButton.icon(
-                    onPressed: (){},
-                    icon: Icon(Icons.report_problem, size: 24, color: Colors.red),
-                    label: Text(
-                      "Denunciar",
-                        style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        ),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
-                      shadowColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 77, 77, 77)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                      )
+                    child: TextButton.icon(
+                      onPressed: (){},
+                      icon: Icon(Icons.report_problem, size: 24, color: Colors.red),
+                      label: Text(
+                        "Denunciar",
+                          style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          ),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
+                        shadowColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 77, 77, 77)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                        )
+                      ),
                     ),
                   ),
                 ),
