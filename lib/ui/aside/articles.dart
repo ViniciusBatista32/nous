@@ -105,7 +105,7 @@ class _ArticlesState extends State<Articles> {
 
                                   child: TextButton(
                                      onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ArticlesView()));
+                                    
                                      },
                                      child: Padding(
                                       padding: EdgeInsets.only(left: 20, right: 20),
@@ -145,9 +145,127 @@ class _ArticlesState extends State<Articles> {
                                      ),
                                     icon: Icon(Icons.favorite, color: Color.fromARGB(255, 255, 88, 119)),
                                     ),
-                                  )
+                                  ),
                               ],
-                          ),                          
+                          ),
+
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ArticlesView()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Container(
+                                height: 180, 
+                                width: 360,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 0,
+                                        blurRadius: 10,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 180,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                            "assets/icons/teste.jpeg"
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(25),
+                                          bottomLeft: Radius.circular(25),
+                                        ),
+                                      ),
+                                    ),
+                          
+                          
+                                    Container(
+                                      height: 180,
+                                      width: 260,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+
+                                              Container(
+                                                margin: EdgeInsets.only(top: 20, left: 30),
+                                                child: Text(
+                                                  "Leitura e TDAH",
+                                                  style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.w700,
+                                                  )
+                                                ),
+                                              ),
+
+                                              IconButton(
+                                                onPressed: () {},
+                                                icon: Icon(Icons.favorite_border))
+                                            ],
+                                          ),
+                                                            
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 10, right:10),
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: 80,
+                                                width: 270,
+                                                child: Text(
+                                                  "Comprometida pelo TDAH, as pessoas que possuem TDAH e tentam ler geralmente não conseguem por conta...",
+                                                  textAlign: TextAlign.justify,
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                    
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: 30,
+                                            width: 260,
+                                            decoration: BoxDecoration(
+                                              color: Color.fromARGB(255, 255, 156, 174),
+                                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(25))
+                                            ),
+
+                                            child: Text(
+                                              "Autor: Raphael Costa & Lucas Castro",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          )
+                                        ]
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+
                         ],
                       ),
                     ),

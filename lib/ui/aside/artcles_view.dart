@@ -21,9 +21,15 @@ class _ArticlesViewState extends State<ArticlesView> {
                   height: 200,
                   width: double.maxFinite,
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/icons/teste.jpeg"
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(35)),
                   ),
+                  
                 ),
 
                 GestureDetector(
@@ -36,11 +42,11 @@ class _ArticlesViewState extends State<ArticlesView> {
                       padding: const EdgeInsets.all(30),
                       child: Container(
                             decoration: BoxDecoration(
-                              border: Border.all(width: 3, color: Colors.white),
+                              border: Border.all(width: 3, color: Colors.black),
                               borderRadius: BorderRadius.all(Radius.circular(50))
                             ),
                 
-                            child: Icon(Icons.arrow_back, size: 24, color: Colors.white,)
+                            child: Icon(Icons.arrow_back, size: 24, color: Colors.black,)
                           ),
                     ),
                   ),
