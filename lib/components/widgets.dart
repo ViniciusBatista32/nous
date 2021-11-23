@@ -4,7 +4,7 @@ import 'package:nous/config.dart';
 
 class WidgetComponents
 {
-  Widget CustomFormField({controller, validator, hintText, padding = 0, keyboardType = TextInputType.text, obscureText = false, suffixIcon = false})
+  Widget CustomFormField({controller, validator, hintText, padding = 0, keyboardType = TextInputType.text, obscureText = false, suffixIcon = false, maxLines = 1, contentPadding = const EdgeInsets.only(left: 10)})
   {
     return Padding(
       padding: padding,
@@ -20,6 +20,7 @@ class WidgetComponents
           fillColor: Colors.grey.shade100,
           filled: true,
           suffixIcon: suffixIcon == false ? SizedBox.shrink() : suffixIcon,
+          contentPadding: contentPadding,
 
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
@@ -45,15 +46,15 @@ class WidgetComponents
     );
   }
 
-  Widget TaskFormField({controller, padding = 0,maxLines, contentPadding , validator, keyboardType = TextInputType.text}){
+  Widget TaskFormField({controller, padding = 0, maxLines, contentPadding, keyboardType = TextInputType.text, maxLength = 255}){
     return Padding(
       padding: padding,
 
-      child: TextFormField(
+      child: TextField(
         controller: controller,
         keyboardType: keyboardType,
-        validator: validator,
         maxLines: maxLines,
+        maxLength: maxLength,
 
         decoration: InputDecoration(
           fillColor: Color.fromARGB(255, 255, 255, 255),
@@ -69,51 +70,54 @@ class WidgetComponents
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(9),
             borderSide: BorderSide(color: Colors.black38)
-      )
-    ),
-  ),
- );
-}
-
-Widget ButtonCreateTask(onPressed){
-  final shape = RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(9)
-  );
-
-  return Material(
-    color: Colors.transparent,
-    shape: shape,
-    elevation: 8,
-
-    child: Container(
-      decoration: ShapeDecoration(
-        shape: shape,
-        gradient: LinearGradient(
-          begin: Alignment(-1, -1),
-          end: Alignment(6, 6),
-          colors: [
-            Color.fromARGB(255, 255, 156, 174),
-            Colors.white,
-          ]
+          )
         ),
       ),
+    );
+  }
 
-      child: ElevatedButton(
-        onPressed: onPressed,
-        
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.only(bottom:5,top: 5,left: 30, right:30),
+  Widget ButtonCreateTask(onPressed){
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(9)
+    );
 
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          primary: Colors.transparent,
-          shadowColor: Colors.transparent,
+    return Material(
+      color: Colors.transparent,
+      shape: shape,
+      elevation: 8,
+
+      child: Container(
+        decoration: ShapeDecoration(
+          shape: shape,
+          gradient: LinearGradient(
+            begin: Alignment(-1, -1),
+            end: Alignment(6, 6),
+            colors: [
+              Color.fromARGB(255, 255, 156, 174),
+              Colors.white,
+            ]
+          ),
         ),
 
-        child: Icon(Icons.done, size: 36,),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.only(bottom:5,top: 5,left: 30, right:30),
+
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            primary: Colors.transparent,
+            shadowColor: Colors.transparent,
+          ),
+
+          child: Icon(
+            Icons.done,
+            size: 36
+          ),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget CronogramTaskCard(String day, ontap, {selected = false}){
     return Padding(
@@ -400,7 +404,7 @@ Widget ButtonCreateTask(onPressed){
         onTap: onTap,
         child: Icon(
           Config().getTaskIcon(icon),
-          size: 40,
+          size: 30,
           color: Colors.grey.shade800,
         ),
       )

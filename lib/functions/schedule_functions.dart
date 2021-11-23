@@ -92,7 +92,6 @@ class ScheduleFunctions
       ).then((value){
         if(value["request_status"]["status"] == 0)
         {
-          dashboard_page = 1;
           taskCreated = true;
           global_schedule_data = value["data"];
 
@@ -135,5 +134,89 @@ class ScheduleFunctions
       taskCreated = true;
       return false;
     }
+  }
+
+  Future editScheduleTask({
+    required task_id,
+    required user_id,
+    required String name,
+    required String description,
+    required initialTime,
+    required finalTime,
+    required int color,
+    required int icon,
+    required bool noRepeat,
+    required weekday,
+    required String date
+  }) async
+  {
+    var getInitialTime = initialTime.hour * 60 + initialTime.minute;
+    var getFinalTime = finalTime.hour * 60 + finalTime.minute;
+
+    if(getInitialTime > getFinalTime)
+    {
+      snackbar("Horário inválido", "O horário de inicio não pode ser maior que o horário final");
+      taskCreated = false;
+      return false;
+    }
+    else if(getInitialTime == getFinalTime)
+    {
+      snackbar("Horário inválido", "O horário de inicio não pode ser igual ao horário final");
+      taskCreated = false;
+      return false;
+    }
+
+    // edit
+
+    final request = await ScheduleRequests().editScheduleTask(
+      task_id     : task_id,
+      user_id     : user_id,
+      name        : name,
+      description : description,
+      initialTime : initialTime,
+      finalTime   : finalTime,
+      color       : color,
+      icon        : icon,
+      noRepeat    : noRepeat,
+      weekday     : weekday,
+      date        : date
+    ).then((value){
+      if(value["request_status"]["status"] == 0)
+      {
+        taskCreated = true;
+        global_schedule_data = value["data"];
+
+        LocalStorageFunctions().saveData(value["data"], "schedule_data.json").then((ret){
+
+          snackbar("Tarefa Editada!", "A tarefa foi edita com sucesso");
+
+          return true;
+        });
+      }
+      else if(value["request_status"]["status"] == 1)
+      {
+        snackbar("Não foi possível editar a tarefa", "Tente novamente mais tarde");
+        taskCreated = false;
+        return false;
+      }
+      else
+      {
+        switch (value["request_status"]["error_code"])
+        {
+          case 17:
+            if(!noRepeat)
+              snackbar("Não foi possível editar a tarefa", "O horário da tarefa não pode sobrepor o horário de outras tarefas");
+            else
+              snackbar("Não foi possível editar a tarefa", "O horário da tarefa não pode sobrepor o horário de outras tarefas\nIsso se aplica somente a tarefas que não repetem");
+          break;
+
+          default:
+            snackbar("Não foi possível editar tarefa", "Tente novamente mais tarde");
+          break;
+        }
+        taskCreated = false;
+        return false;
+      }
+    });
   }
 }

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:nous/config.dart';
 import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/functions/todo_functions.dart';
 
@@ -15,10 +16,12 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   bool _checked = false;
 
-  int listLenght = global_todo_data.length;
+  int listLenght = 0;
 
   @override
   Widget build(BuildContext context) {
+    listLenght = global_todo_data.length;
+
     return Container(
       child: Column(
         children: [
@@ -107,7 +110,15 @@ class _TodoPageState extends State<TodoPage> {
                         ),
 
                         secondary: GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.pushNamed(
+                              context,
+                              "/editTask",
+                              arguments: EditTaskArguments(true, global_todo_data[index])
+                            ).then((value){
+                              setState(() {});
+                            });
+                          },
                           child: Icon(Icons.edit),
                         ),
 

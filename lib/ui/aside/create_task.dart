@@ -4,6 +4,7 @@ import 'package:nous/components/widgets.dart';
 import 'package:nous/config.dart';
 import 'package:nous/functions/in_app_data.dart';
 import 'package:nous/functions/schedule_functions.dart';
+import 'package:nous/functions/todo_functions.dart';
 
 class CreateTask extends StatefulWidget {
   const CreateTask();
@@ -408,6 +409,7 @@ class _CreateTaskState extends State<CreateTask> {
                             keyboardType: TextInputType.text,
                             contentPadding: EdgeInsets.only(left: 10, top: 10),
                             maxLines: 1,
+                            maxLength: 20
                           ),
 
                           !todo
@@ -621,7 +623,7 @@ class _CreateTaskState extends State<CreateTask> {
                       )
                       : Container(),
 
-                      todo || noRepeat
+                      !todo && noRepeat
                       ? Container(
                         padding: EdgeInsets.only(top: 30),
                         alignment: Alignment.centerLeft,
@@ -634,7 +636,7 @@ class _CreateTaskState extends State<CreateTask> {
                       )
                       : Container(),
 
-                      todo || noRepeat
+                      !todo && noRepeat
                       ? Container(
                         padding: EdgeInsets.only(top: 20),
                         child: SizedBox(
@@ -660,7 +662,8 @@ class _CreateTaskState extends State<CreateTask> {
                       )
                       : Container(),
 
-                      Container(
+                      !todo
+                      ? Container(
                         padding: EdgeInsets.only(top: 30),
                         alignment: Alignment.centerLeft,
                         child: const Text(
@@ -669,9 +672,11 @@ class _CreateTaskState extends State<CreateTask> {
                             fontSize: 18,
                           )
                         )
-                      ),
+                      )
+                      : Container(),
                       
-                      Column(
+                      !todo
+                      ? Column(
 
                         children: [
                           Container(
@@ -751,7 +756,8 @@ class _CreateTaskState extends State<CreateTask> {
                             )
                           )
                         ]
-                      ),
+                      )
+                      : Container(),
 
                       const Padding(padding: EdgeInsets.all(15)),
 
@@ -808,7 +814,13 @@ class _CreateTaskState extends State<CreateTask> {
     }
     else
     {
-      // Create to-do task
+      TodoFunctions().createTodoTask(
+        user_id: global_user_data["id"],
+        description: nameController.text
+      ).then((value){
+        if(taskCreated)
+          Navigator.pop(context);
+      });
     }
 
     setState(() {
