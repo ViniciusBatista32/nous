@@ -20,7 +20,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final _pageController = PageController(initialPage: dashboard_page);
 
   bool firstBallIsActive = true;
   bool secondBallIsActive = false;
@@ -64,7 +63,6 @@ class _DashboardState extends State<Dashboard> {
             ),
 
             child: PageView(
-              controller: _pageController,
               onPageChanged: (page){
                 setState(() {
                   actualPage = page;

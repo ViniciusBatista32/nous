@@ -11,6 +11,20 @@ class TodoRequests
     return json.decode(response.body);
   }
 
+  Future createTodoTask(user_id, description) async
+  {
+    Uri requestUri = Uri.parse("${Config().baseUrl}todo.php?api_key=${Config().apiKey}&action=create_todo_task&user_id=$user_id&description=$description");
+    http.Response response = await http.get(requestUri);
+    return json.decode(response.body);
+  }
+
+  Future editTodoTask({task_id, user_id, description}) async
+  {
+    Uri requestUri = Uri.parse("${Config().baseUrl}todo.php?api_key=${Config().apiKey}&action=edit_todo_task&task_id=$task_id&user_id=$user_id&description=$description");
+    http.Response response = await http.get(requestUri);
+    return json.decode(response.body);
+  }
+
   Future checkTodoTask(user_id, task_id, completed) async
   {
     Uri requestUri = Uri.parse("${Config().baseUrl}todo.php?api_key=${Config().apiKey}&action=check_todo_task&user_id=$user_id&task_id=$task_id&completed=$completed");

@@ -249,7 +249,13 @@ class _SchedulePageState extends State<SchedulePage>
 
                                     GestureDetector(
                                       onLongPress: (){
-                                        Navigator.pushNamed(context, "/editTask");
+                                        Navigator.pushNamed(
+                                          context,
+                                          "/editTask",
+                                          arguments: EditTaskArguments(false, scheduleDayData[index])
+                                        ).then((value){
+                                          setState(() {});
+                                        });
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 50, right: 20),

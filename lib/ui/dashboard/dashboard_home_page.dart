@@ -11,16 +11,16 @@ class DashboardHomePage extends StatefulWidget {
 }
 
 class _DashboardHomePageState extends State<DashboardHomePage> {
-  _timer() async {
-    Future.delayed(Duration(seconds: 5)).then((_) {
-      setState(() {});
-      _timer();
-    });
-  }
+  // _timer() async {
+  //   Future.delayed(Duration(seconds: 10)).then((_) {
+  //     setState(() {});
+  //     _timer();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _timer();
+    // _timer();
 
     var weekday = DateTime.now().weekday - 1;
 
@@ -44,39 +44,41 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
 
         pickFirst()
         {
-          if(global_schedule_data[weekday][count + 1]["date"] == null)
+          if(!(count + 1 >= global_schedule_data[weekday].length))
           {
-            if(!(count + 1 >= global_schedule_data[weekday].length))
+            if(global_schedule_data[weekday][count + 1]["date"] == null)
+            {
               firstNextTaskData = global_schedule_data[weekday][count + 1];
-          }
-          else if(global_schedule_data[weekday][count + 1]["date"] == day)
-          {
-            if(!(count + 1 >= global_schedule_data[weekday].length))
+            }
+            else if(global_schedule_data[weekday][count + 1]["date"] == day)
+            {
               firstNextTaskData = global_schedule_data[weekday][count + 1];
-          }
-          else
-          {
-            count ++;
-            pickFirst();
+            }
+            else
+            {
+              count ++;
+              pickFirst();
+            }
           }
         }
 
         pickSecond()
         {
-          if(global_schedule_data[weekday][count + 2]["date"] == null)
+          if(!(count + 2 >= global_schedule_data[weekday].length))
           {
-            if(!(count + 2 >= global_schedule_data[weekday].length))
-              secondNextTaskData = global_schedule_data[weekday][count + 2];
-          }
-          else if(global_schedule_data[weekday][count + 1]["date"] == day)
-          {
-            if(!(count + 2 >= global_schedule_data[weekday].length))
-              secondNextTaskData = global_schedule_data[weekday][count + 2];
-          }
-          else
-          {
-            count ++;
-            pickFirst();
+            if(global_schedule_data[weekday][count + 2]["date"] == null)
+            {
+                secondNextTaskData = global_schedule_data[weekday][count + 2];
+            }
+            else if(global_schedule_data[weekday][count + 1]["date"] == day)
+            {
+                secondNextTaskData = global_schedule_data[weekday][count + 2];
+            }
+            else
+            {
+              count ++;
+              pickFirst();
+            }
           }
         }
         
