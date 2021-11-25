@@ -109,15 +109,16 @@ class _TimerState extends State<Timer> {
                     margin: EdgeInsets.only(top: 15),
                     decoration: BoxDecoration(
                       color: Color.fromARGB(255, 255, 104, 132),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(25),
-                          topLeft: Radius.circular(25)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          padding: EdgeInsets.only(right: 40),
+                          padding: EdgeInsets.only(right: 40, bottom: 10),
                           child: Icon(
                             Icons.video_call,
                             color: Colors.white,
@@ -126,13 +127,18 @@ class _TimerState extends State<Timer> {
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Reunião",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 36,
-                                  color: Colors.white,
-                                )),
+                            Container(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text("Reunião",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 36,
+                                    color: Colors.white,
+                                    )
+                              ),
+                            ),
                           ],
                         ),
                       ],

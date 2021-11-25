@@ -500,30 +500,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                 )
               )
             ],
-          ),
-
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(top: 20),
-            
-            child: const Text(
-              "Seu relatório",
-              style: TextStyle(
-                color: Color.fromARGB(255, 77, 77, 77),
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            height: 190,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20),),
-              color: Colors.white,
-            ),
-          )
+          ),          
         ],
       ),
     );
