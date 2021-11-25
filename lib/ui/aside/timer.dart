@@ -29,28 +29,30 @@ class _TimerState extends State<Timer> {
           color: Color.fromARGB(255, 242, 244, 245),
         ),
         width: double.infinity,
+        height: double.infinity,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.8),
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                  child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: Icon(Icons.arrow_back, size: 24)),
-                ),
-              ],
-            ),
-            Padding(
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.8),
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(Icons.arrow_back, size: 24)),
+                  ),
+                ],
+              ),
+
+              Padding(
                 padding: EdgeInsets.only(top: 18),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Tempo restante",
@@ -59,7 +61,7 @@ class _TimerState extends State<Timer> {
                         fontSize: 48,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 40),
                     Text(
                       "Timer",
                       style: TextStyle(
@@ -68,51 +70,59 @@ class _TimerState extends State<Timer> {
                       ),
                     )
                   ],
-                )),
+                )
+              ),
+  
             Container(
-              padding: EdgeInsets.only(top: 30),
+              alignment: Alignment.bottomCenter,
+              padding: EdgeInsets.only(top: 50),
               child: Expanded(
-                child: CircularPercentIndicator(
-                  percent: 0.6,
-                  animation: true,
-                  animateFromLastPercent: true,
-                  radius: 250.0,
-                  lineWidth: 5,
-                  progressColor: Color.fromARGB(255, 255, 104, 132),
-                  center: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(250),
-                    ),
-                    child: (Text(
-                      "12:00",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 77, 77, 77),
-                        fontSize: 96,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: CircularPercentIndicator(
+                    percent: 0.6,
+                    animation: true,
+                    animateFromLastPercent: true,
+                    radius: 250.0,
+                    lineWidth: 5,
+                    progressColor: Color.fromARGB(255, 255, 104, 132),
+                    center: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(250),
                       ),
-                    )),
+                      child: (Text(
+                        "12:00",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 77, 77, 77),
+                          fontSize: 96,
+                        ),
+                      )),
+                    ),
                   ),
                 ),
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.236),
+            
             Expanded(
-                child: Align(
+              child: Align(
               alignment: FractionalOffset.bottomCenter,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
                         top: 15, right: 15, left: 15, bottom: 8),
-                    margin: EdgeInsets.only(top: 15),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 255, 104, 132),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(25),
-                      ),
-                    ),
+                        margin: EdgeInsets.only(top: 15),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 104, 132),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(25),
+                            ),
+                          ),
+
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,18 +135,20 @@ class _TimerState extends State<Timer> {
                             size: 56,
                           ),
                         ),
+
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               padding: EdgeInsets.only(bottom: 10),
-                              child: Text("Reunião",
+                              child: Text(
+                                  "Reunião",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 36,
                                     color: Colors.white,
-                                    )
+                                  )
                               ),
                             ),
                           ],

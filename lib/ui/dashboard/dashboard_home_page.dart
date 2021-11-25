@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nous/config.dart';
 import 'package:nous/functions/in_app_data.dart';
+import 'package:nous/functions/todo_functions.dart';
 import 'package:nous/ui/aside/timer.dart';
 
 class DashboardHomePage extends StatefulWidget {
@@ -11,6 +13,7 @@ class DashboardHomePage extends StatefulWidget {
 }
 
 class _DashboardHomePageState extends State<DashboardHomePage> {
+  int listLenght = 0;
   // _timer() async {
   //   Future.delayed(Duration(seconds: 10)).then((_) {
   //     setState(() {});
@@ -21,6 +24,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
   @override
   Widget build(BuildContext context) {
     // _timer();
+    listLenght = global_todo_data.length;
 
     var weekday = DateTime.now().weekday - 1;
 
@@ -497,12 +501,118 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                     )
                     : const SizedBox(),
                   ],
-                )
+                ),
               )
             ],
-          ),          
-        ],
-      ),
+          ),   
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "To do",
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+
+            Expanded(
+            child: ListView.builder(
+              itemCount: listLenght,
+              
+              itemBuilder: (context, index){
+                return  Padding(
+                  padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+
+                  child: Dismissible(
+                    onDismissed: (direction){
+                      setState(() {
+                        var tempData = global_todo_data[index];
+
+                        global_todo_data.removeAt(index);
+                        listLenght = global_todo_data.length;
+
+                        TodoFunctions().deleteTodoTask(global_user_data["id"], tempData["id"]).then((value){
+                          if(Get.isSnackbarOpen ?? false){}
+                          else
+                            Get.snackbar("Tarefa removida", "A tarefa: \"${tempData['description']}\" foi removida");
+                        });
+                      });
+                    },
+
+                    key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
+                    direction: DismissDirection.startToEnd,
+
+                    background: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+
+                      child: Align(
+                        alignment: Alignment(-0.9, 0),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+
+                      child: CheckboxListTile(
+                        value: global_todo_data[index]["completed"] == "1" ? true : false,
+                        onChanged: (value){
+                          setState(() {
+                            var actual_completed = global_todo_data[index]["completed"];
+
+                            global_todo_data[index]["completed"] = actual_completed == "0" ? "1" : "0";
+
+                            TodoFunctions().checkTodoTask(
+                              global_user_data["id"],
+                              global_todo_data[index]["id"],
+                              actual_completed == "0" ? 1 : 0
+                            );
+                          });
+                        },
+
+                        title: Text(
+                          global_todo_data[index]["description"],
+                          style: TextStyle(
+                            fontSize: 18
+                          ),
+                        ),
+
+                        secondary: GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamed(
+                              context,
+                              "/editTask",
+                              arguments: EditTaskArguments(true, global_todo_data[index])
+                            ).then((value){
+                              setState(() {});
+                            });
+                          },
+                          child: Icon(Icons.edit),
+                        ),
+
+                        controlAffinity: ListTileControlAffinity.leading,
+                        checkColor: Colors.white,
+                        activeColor: Color.fromARGB(255, 255, 156, 174),
+                      ),
+                    )
+                  )
+                );
+              },
+            )
+          )
+        ]
+      )
     );
   }
 }
