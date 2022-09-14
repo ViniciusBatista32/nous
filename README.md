@@ -1,16 +1,12 @@
-# nous
+# NOUS
 
-A new Flutter project.
+TCC project using Flutter and PHP as backend to develop the best way to improve your attention while using your phone!
 
-## Getting Started
+## Getting to know more about the project!
 
-This project is a starting point for a Flutter application.
+This project uses Flutter and PHP. The design was followed as made previously on figma.
 
-A few resources to get you started if this is your first Flutter project:
+The main reason of this project is for the conclusion of the course offered by ETEC (Analisys and Sistem Development)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+The group had the focus on creating a project that would help people with ADHD. Get to know more about the project on the page: https://www.youtube.com/watch?v=jc8V5JcAZ9w
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
